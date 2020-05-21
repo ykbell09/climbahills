@@ -1,0 +1,16 @@
+{
+  "name": "climbahills",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "local-start": "NODE_ENV=development nodemon -r esm app.js",
+    "start": "node -r esm app.js"
+  },
+  "author": "Yvette Bell",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
+}
