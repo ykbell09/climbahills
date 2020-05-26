@@ -9,6 +9,7 @@ CREATE TABLE users (
 
 CREATE TABLE problems (
     id serial PRIMARY KEY,
+    name varchar UNIQUE,
     date_set date NOT NULL,
     date_entered TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     notes text,

@@ -1,4 +1,5 @@
 import express from 'express';
+import {getAllProblems} from './services/functions.js';
 
 const app = express();
 
@@ -9,6 +10,11 @@ const app = express();
 //     const gins = checkLocation(state_located);
 //     response.json(gins);
 // });
+
+app.get('/api/problems', async (request, response) => {
+    const allProblems = await getAllProblems();
+    return response.json(allProblems);
+});
 
 
 // STATIC ROUTES
