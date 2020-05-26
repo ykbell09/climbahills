@@ -39,6 +39,11 @@ if (NODE_ENV !== 'development' && NODE_ENV !== 'test') {
 };
 
 // LOCAL PORT 
-const PORT = 8000;
-app.listen(PORT, () =>
-    console.log(`listening on port ${PORT} -- YOU CAN DO THIS!`));
+// const PORT = 8000;
+// app.listen(PORT, () =>
+//     console.log(`listening on port ${PORT} -- YOU CAN DO THIS!`));
+
+// DEPLOY CODE
+app.listen(process.env.PORT, () =>
+    console.log(`listening on port ${process.env.PORT}`)
+);
