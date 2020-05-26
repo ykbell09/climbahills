@@ -11,57 +11,60 @@
 
 <body>
 
-        <div class="opacity">
-            <div class="hero">
-                <div class="header">
-                    <h1>the A-hills</h1>
-                </div>
-                <button id="climb-on"><a href="#about">Climb on</a></button>
+    <!-- TOP NAV -->
+    <div id="top-nav" class="nav">
+        <ul>
+            <a href="#">
+                <li>problems - coming soon!</li>
+            </a>
+            <a href="mailto:ykbell09@gmail.com">
+                <li>contact</li>
+            </a>
+        </ul>
+    </div> 
+
+    <!-- HERO -->
+    <div class="opacity">
+        <div class="hero">
+            <div class="header">
+                <h1>the A-hills</h1>
             </div>
-        <!-- END HERO CONTAINER -->
+            <button id="climb-on">climb on</button>
+            <p><a href="mailto:ykbell09@gmail.com?subject=I want to climb at the A-hills!" class="feature-link">join us</a></p>
+        </div>
+    </div> 
 
+    <!-- LOG IN -->
+    <div class="form-popup" id="login">
+        <form class="form-container">
+            <h3>login</h3>
+            <label for="email">email</label>
+            <input type="email" placeholder="email address" name="email" required />
+            <label for="pass">password</label>
+            <input type="password" placeholder="password" name="pass" required />
+            <button type="submit">login</button>
+            <button type="submit" class="cancel" id="cancel-button">cancel</button>
+            <p><a href="mailto:ykbell09@gmail.com?subject=I want to climb at the A-hills!" class="feature-link">join us</a></p>
 
-            <div id="top-nav" class="nav">
-                <ul>
-                    <a href="#">
-                        <li>more info coming soon!</li>
-                    </a>
-                    <!-- <a href="#">
-                        <li>login</li>
-                    </a>
-                    <a href="#">
-                        <li>problems</li>
-                    </a>
-                    <a href="#">
-                        <li>contact</li>
-                    </a> -->
-                </ul>
+        </form>
+    </div>
 
-            </div>
-            <!-- END NAV CONTAINER -->
+    <div class="grid-container">
 
-            <div class="grid-container">
+        <div id="about" class="grid-item">
+            <h3>small but mighty</h3>
+            <p>The A-hills home gym was born of necessity. The perfect garage wall was lined with junk for years, before
+                the Covid-19 Pandemic of 2020 closed gyms around the world. Fortunately, Lowe's was still open. The
+                quaranteam masked up and braved the hardware store at odd hours, worked tirelessly for three weekends
+                straight, with improper tools, and no closed-toe footwear. Featuring artwork designed by a renowned
+                artist, the peak of Mount Whitney and the graceful curves of the Mobious arch invite climbers to boulder
+                on a short wall in a two-car garage. <em>Memberships by invite only.</em></p>
+        </div>
 
-                <div id="about" class="grid-item">
-                    <h3>small but mighty</h3>
-                    <p>The A-hills home gym was born of necessity. The perfect garage wall was lined with junk for
-                        years, before the
-                        Covid-19 Pandemic of 2020 closed gyms around the world. Fortunately, Lowe's was still open. The
-                        quaranteam
-                        masked up and braved the hardware store at odd hours, worked tirelessly for three weekends
-                        strait, with
-                        improper tools, and no closed-toe footwear. Featuring artwork designed by a renowned artist, the
-                        peak of
-                        Mount Whitney and the graceful curves of the Mobious arch invite climbers to boulder on a short
-                        wall in a
-                        two-car garage. <em>Memberships by invite only.</em></p>
-                </div>
+        <div class="grid-item" id="problems"></div>
 
-                <div class="grid-item" id="problems"> </div>
+    </div> <!-- END GRID CONTAINER -->
 
-            </div>
-            <!-- END GRID CONTAINER -->
     <script src="index.js" type="module"></script>
 </body>
-
 </html>
