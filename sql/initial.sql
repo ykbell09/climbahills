@@ -1,11 +1,13 @@
 CREATE TABLE users (
     id serial PRIMARY KEY,
-    name varchar(30) NOT NULL,
     username varchar(30) UNIQUE NOT NULL,
     email varchar(30) UNIQUE NOT NULL,
-    password VARCHAR(100) UNIQUE NOT NULL,
-    date_joined TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    password VARCHAR(150) NOT NULL,
+    date_joined TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    permission varchar NOT NULL DEFAULT 'guest'
 );
+
+-- permission is guest, setter, member, admin, requested setter or requested member
 
 CREATE TABLE problems (
     id serial PRIMARY KEY,

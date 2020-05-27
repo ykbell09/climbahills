@@ -21,7 +21,7 @@
                 <li>contact</li>
             </a>
         </ul>
-    </div> 
+    </div>
 
     <!-- HERO -->
     <div class="opacity">
@@ -30,9 +30,9 @@
                 <h1>the A-hills</h1>
             </div>
             <button id="climb-on">climb on</button>
-            <p><a href="mailto:ykbell09@gmail.com?subject=I want to climb at the A-hills!" class="feature-link">join us</a></p>
+            <p class="join-us" id="join-us1">join us</p>
         </div>
-    </div> 
+    </div>
 
     <!-- LOG IN -->
     <div class="form-popup" id="login">
@@ -43,9 +43,26 @@
             <label for="pass">password</label>
             <input type="password" placeholder="password" name="pass" required />
             <button type="submit">login</button>
-            <button type="submit" class="cancel" id="cancel-button">cancel</button>
-            <p><a href="mailto:ykbell09@gmail.com?subject=I want to climb at the A-hills!" class="feature-link">join us</a></p>
+            <button type="submit" class="cancel" id="cancel-login">cancel</button>
+            <p class="join-us" id="join-us2">join us</p>
 
+        </form>
+    </div>
+
+    <!-- SIGN UP -->
+    <div class="form-popup" id="sign-up">
+        <form class="form-container">
+            <h3>sign up</h3>
+            <label for="username">name</label>
+            <input type="text" placeholder="your name" name="name" required />
+            <label for="email">email</label>
+            <input type="email" placeholder="email address" name="email" required />
+            <label for="pass">password</label>
+            <input type="password" placeholder="password" name="pass" required />
+            <label for="confirm-pass">confirm password</label>
+            <input type="confirm-pass" placeholder="password" name="confirm-pass" required />
+            <button type="submit">submit</button>
+            <button type="submit" class="cancel" id="cancel-signup">cancel</button>
         </form>
     </div>
 
@@ -67,4 +84,5 @@
 
     <script src="index.js" type="module"></script>
 </body>
+
 </html>

@@ -58,19 +58,19 @@ button:hover {
   cursor: pointer;
 }
 
-.feature-link,
+.join-us,
 button a {
   color: inherit;
   text-decoration: inherit;
 }
 
-.feature-link {
+.join-us {
   text-transform: uppercase;
   letter-spacing: 4px;
   font-weight: 700;
   font-size: 1em;
   color: var(--black);
-
+  cursor: pointer;
 }
 
 .cancel {
@@ -148,10 +148,11 @@ h1::after {
   left: 50%;
   transform: translate(-50%, -50%);
 
-  border: 3px solid white;
+  border: 1px solid var(--white);
   border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(48, 46, 46, 0.2);
   background-color: white;
-  padding: 10px;
+  padding: 20px;
   z-index: 9;
 }
 
