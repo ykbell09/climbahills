@@ -8,8 +8,9 @@
 // );
 
 // LOGIN FORM CODE
-document.querySelector('#climb-on').addEventListener('click', () => {
+document.querySelector('#log-in-button').addEventListener('click', () => {
     document.querySelector('#login').style.display = 'block';
+    document.querySelector('#sign-up').style.display = 'none';
 });
 
 document.querySelector('#cancel-login').addEventListener('click', () => {
@@ -17,11 +18,7 @@ document.querySelector('#cancel-login').addEventListener('click', () => {
 });
 
 // SIGN UP FORM CODE
-document.querySelector('#join-us1').addEventListener('click', () => {
-    document.querySelector('#sign-up').style.display = 'block';
-});
-
-document.querySelector('#join-us2').addEventListener('click', () => {
+document.querySelector('#join-us').addEventListener('click', () => {
     document.querySelector('#sign-up').style.display = 'block';
     document.querySelector('#login').style.display = 'none';
 });
@@ -50,10 +47,23 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
             password: signUpPass
         })
     })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            });
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // hide join us link
+            document.querySelector('#sign-up').style.display = 'none';
+            
+            // show welcome message -- change this to add element in topnav
+            document.querySelector('#join-us').innerHTML = `welcome, ${data}`;
+
+            // show log out button
+            document.querySelector('#log-in-button').style.display = 'none';
+            document.querySelector('#log-out-button').style.display = 'inline';
+
+            // sheck setter status and if true, show add problem button
+            
+            
+        });
 
 
 

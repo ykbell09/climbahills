@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import knex from '../database';
-import { addNewUser } from '../services/functions';
+import { addNewUser, getUserByEmail } from '../services/functions';
 
 // describe('problem functions', () => {
 
@@ -22,6 +22,7 @@ describe('user functions', () => {
     afterEach(async () => {
         await knex('users')
             .where({ username: 'testUser' })
+            .orWhere({ username: 'testUser2' })
             .del();
     });
 
@@ -31,9 +32,22 @@ describe('user functions', () => {
             const username = 'testUser';
             const email = 'testUser@test.com';
             const password = 'test';
-            const data = await addNewUser(username, email, password);
+            const result = await addNewUser(username, email, password);
+            expect(result).to.equal(username);
+            
+        });
+    });
 
-            expect(data[0]).to.equal(username);
+    describe('getUserByEmail', () => {
+        it('returns the logged in username', async () => {
+            
+            const username = 'testUser2';
+            const email = 'testUser2@test.com';
+            const password = 'test2';
+            await addNewUser(username, email, password);
+            const result = await getUserByEmail(email);
+            expect(result).to.equal(username);
+
         });
     });
 

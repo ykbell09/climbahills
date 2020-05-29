@@ -1,15 +1,21 @@
 import express from 'express';
+import knex from './database';
+import session from 'express-session';
+import ConnectSessionKnex from 'connect-session-knex';
 import { addNewUser } from './services/functions.js';
 
 const app = express();
 app.use(express.json());
 
-// // EXAMPLE API
-// app.get('/api/getGins/:location', (request, response) => {
-//     const { state_located } = request.params || {};
-//     const gins = checkLocation(state_located);
-//     response.json(gins);
-// });
+// SESSIONS MIDDLEWARE
+const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
+const KnexSessionStore = ConnectSessionKnex(session);
+const store = new KnexSessionStore({ knex });
+app.use(session({
+    store,
+    cookie: { maxAge: ONE_WEEK },
+    secret: '$2b$10$2wyQTyw4vsK40hq7AnVguboKTLbEnrzh'
+}));
 
 // app.get('/problems', async (request, response) => {
 //     const allProblems = await getAllProblems();
@@ -23,6 +29,14 @@ app.post('/users', async (request, response) => {
     response.send(username);
 });
 
+// LOG IN USER
+
+
+// LOG OUT USER
+app.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.end('/');
+});
 
 // STATIC ROUTES
 const staticRoute = express.static('static');

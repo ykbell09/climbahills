@@ -64,14 +64,14 @@ button a {
   text-decoration: inherit;
 }
 
-.join-us {
+/* .join-us {
   text-transform: uppercase;
   letter-spacing: 4px;
   font-weight: 700;
   font-size: 1em;
   color: var(--black);
   cursor: pointer;
-}
+} */
 
 .cancel {
   background-color: var(--orange);
@@ -140,13 +140,12 @@ h1::after {
   height: 7px;
 }
 
-/* LOG IN FORM */
+/* POP UP FORMS */
 .form-popup {
   display: none;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 10%;
+  right: 1%;
 
   border: 1px solid var(--white);
   border-radius: 5px;
@@ -173,21 +172,36 @@ h1::after {
   z-index: 9;
   width: 100%;
   box-shadow: 0 4px 8px 0 rgba(48, 46, 46, 0.2);
-}
-.nav ul {
   background-color: var(--orange);
-  padding: 15px;
   margin: 0;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.nav li {
-  list-style-type: none;
+.nav * {
   display: inline;
-  margin: 0;
-  padding: 15px
+  padding: 15px;
 }
 
+#log-out-button {
+  display: none;
+}
+
+.nav-button {
+  font-weight: 500;
+  font-size: .80em;
+  color: var(--black);
+  cursor: pointer;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+
+  background-color: var(--green);
+  border-radius: 4px;
+  border: 0;
+  padding: 4px 15px;
+}
+
+.nav p,
 .nav a {
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -198,7 +212,8 @@ h1::after {
   padding: 15px;
 }
 
-.nav a:hover {
+.nav a:hover,
+#join-us:hover {
  background-color: var(--ltorange);
 }
 
