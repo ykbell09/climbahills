@@ -1,8 +1,8 @@
 import express from 'express';
-import {getAllProblems} from './services/functions.js';
+import { addNewUser } from './services/functions.js';
 
 const app = express();
-
+app.use(express.json());
 
 // // EXAMPLE API
 // app.get('/api/getGins/:location', (request, response) => {
@@ -11,9 +11,16 @@ const app = express();
 //     response.json(gins);
 // });
 
-app.get('/api/problems', async (request, response) => {
-    const allProblems = await getAllProblems();
-    return response.json(allProblems);
+// app.get('/problems', async (request, response) => {
+//     const allProblems = await getAllProblems();
+//     return response.json(allProblems);
+// });
+
+// SIGN UP NEW USER
+app.post('/users', async (request, response) => {
+    const newUser = request.body;
+    const username = await addNewUser(newUser.username, newUser.email, newUser.password);
+    response.send(username);
 });
 
 
@@ -39,11 +46,11 @@ if (NODE_ENV !== 'development' && NODE_ENV !== 'test') {
 };
 
 // LOCAL PORT 
-// const PORT = 8000;
-// app.listen(PORT, () =>
-//     console.log(`listening on port ${PORT} -- YOU CAN DO THIS!`));
+const PORT = 8000;
+app.listen(PORT, () =>
+    console.log(`listening on port ${PORT} -- YOU CAN DO THIS!`));
 
 // DEPLOY CODE
-app.listen(process.env.PORT, () =>
-    console.log(`listening on port ${process.env.PORT}`)
-);
+// app.listen(process.env.PORT, () =>
+//     console.log(`listening on port ${process.env.PORT}`)
+// );
