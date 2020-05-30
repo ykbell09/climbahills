@@ -2,20 +2,6 @@ import { expect } from 'chai';
 import knex from '../database';
 import { addNewUser, checkPassHash } from '../services/functions';
 
-// describe('problem functions', () => {
-
-//     describe('getAllProblems', () => {
-//         it('gets an array of all problems', async () => {
-//             const allProblems = await getAllProblems();
-//             console.log(allProblems);
-//             expect(allProblems).to.have.lengthOf(4);
-
-//         });
-//     });
-
-
-// });
-
 describe('user functions', () => {
 
     const username = 'testUser';

@@ -7,7 +7,6 @@
 //     })
 // );
 
-// LOGIN FORM CODE
 document.querySelector('#log-in-button').addEventListener('click', () => {
     document.querySelector('#login').style.display = 'block';
     document.querySelector('#sign-up').style.display = 'none';

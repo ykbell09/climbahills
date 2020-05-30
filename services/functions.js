@@ -1,14 +1,6 @@
 import knex from '../database.js';
 import { hashPass, compareHash } from './auth.js';
 
-
-// RETURNS AND ARRAY OF OBJECTS
-// export const getAllProblems = async () => {
-//     return await knex('problems')
-//         .returning('date_set', 'name', 'userid', 'grade', 'notes');
-// };
-
-
 /**
  * 
  * @param {string} username 
@@ -20,6 +12,8 @@ export const addNewUser = async (username, email, password) => {
     const [user] = await knex('users')
         .insert({ username, email, password: await hashPass(password) })
         .returning('username');
+    // ADD ERROR IF DUPLICATE USERNAME OR EMAIL
+    // https://knexjs.org/#Interfaces-query-error
     return user;
 };
 

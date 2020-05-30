@@ -7,7 +7,7 @@ import { addNewUser, checkPassHash } from './services/functions.js';
 const app = express();
 app.use(express.json());
 
-// SESSIONS MIDDLEWARE
+// sessions middleware
 const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
 const KnexSessionStore = ConnectSessionKnex(session);
 const store = new KnexSessionStore({ knex });
@@ -20,39 +20,29 @@ app.use(session({
     sameSite: true
 }));
 
-// app.get('/problems', async (request, response) => {
-//     const allProblems = await getAllProblems();
-//     return response.json(allProblems);
-// });
 
 // SIGN UP NEW USER ----- NEED HELP! 
 app.post('/users', async (req, res) => {
     const newUser = req.body;
-    const session = await addNewUser(newUser.username, newUser.email, newUser.password);
-    res.send(session.user.username);
+    const response = await addNewUser(newUser.username, newUser.email, newUser.password);
+    res.send(response);
 });
 
-// 
 app.post('/users/login', async (req, res) => {
-
-    req.session.regenerate( async (err) => {
+    req.session.regenerate( async (err) => { // super important for security!
         const user = req.body;
         req.session.username = await checkPassHash(user.email, user.password);
         const response = { username: req.session.username };
         res.send(response);
-    }); // super important for security!
-
-
+    }); 
 });
 
-// 
 app.post('/logout', function (req, res) {
     req.session.destroy((err) => {
         res.end('/');
     });
 });
 
-// STATIC ROUTES
 const staticRoute = express.static('static');
 app.use('/', staticRoute);
 app.use('/static', staticRoute);
