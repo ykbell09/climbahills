@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import knex from '../database';
-import { addNewUser, getUserByEmail } from '../services/functions';
+import { addNewUser, checkPassHash } from '../services/functions';
 
 // describe('problem functions', () => {
 
@@ -18,35 +18,56 @@ import { addNewUser, getUserByEmail } from '../services/functions';
 
 describe('user functions', () => {
 
-    // DELETES CREATED MEMBER DATA
-    afterEach(async () => {
+    const username = 'testUser';
+    const email = 'testUser@test.com';
+    const password = 'test';
+
+    before(async () => {
         await knex('users')
-            .where({ username: 'testUser' })
-            .orWhere({ username: 'testUser2' })
+            .where({ username: username })
             .del();
     });
 
     describe('addNewUser', () => {
-        it('inserts a recored and returns the username in an array', async () => {
+
+        it('add new user to database', async () => {
             
-            const username = 'testUser';
-            const email = 'testUser@test.com';
-            const password = 'test';
             const result = await addNewUser(username, email, password);
             expect(result).to.equal(username);
             
         });
+        
+        // it('tries to add a duplicate value', async () => {
+            
+        //     const result = await addNewUser(username, email, password);
+        //     expect(result).to.throw();
+            
+        // });
+
     });
 
-    describe('getUserByEmail', () => {
-        it('returns the logged in username', async () => {
+    describe('checkPassHash', () => {
+
+        it('checks provided password against database', async () => {
             
-            const username = 'testUser2';
-            const email = 'testUser2@test.com';
-            const password = 'test2';
-            await addNewUser(username, email, password);
-            const result = await getUserByEmail(email);
+            const result = await checkPassHash(email, password);
             expect(result).to.equal(username);
+
+        });
+
+        it('user email not in database', async () => {
+            
+            const badEmail = 'badEmail@email.com';
+            const result = await checkPassHash(badEmail, password);
+            expect(result).to.be.null;
+
+        });
+
+        it('password doesn\'t match', async () => {
+            
+            const badPass = 'badPassword';
+            const result = await checkPassHash(email, badPass);
+            expect(result).to.be.null;
 
         });
     });

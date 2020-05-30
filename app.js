@@ -2,7 +2,7 @@ import express from 'express';
 import knex from './database';
 import session from 'express-session';
 import ConnectSessionKnex from 'connect-session-knex';
-import { addNewUser } from './services/functions.js';
+import { addNewUser, checkPassHash } from './services/functions.js';
 
 const app = express();
 app.use(express.json());
@@ -14,7 +14,10 @@ const store = new KnexSessionStore({ knex });
 app.use(session({
     store,
     cookie: { maxAge: ONE_WEEK },
-    secret: '$2b$10$2wyQTyw4vsK40hq7AnVguboKTLbEnrzh'
+    resave: false,
+    saveUninitialized: true,
+    secret: '$2b$10$2wyQTyw4vsK40hq7AnVguboKTLbEnrzh',
+    sameSite: true
 }));
 
 // app.get('/problems', async (request, response) => {
@@ -22,20 +25,31 @@ app.use(session({
 //     return response.json(allProblems);
 // });
 
-// SIGN UP NEW USER
-app.post('/users', async (request, response) => {
-    const newUser = request.body;
-    const username = await addNewUser(newUser.username, newUser.email, newUser.password);
-    response.send(username);
+// SIGN UP NEW USER ----- NEED HELP! 
+app.post('/users', async (req, res) => {
+    const newUser = req.body;
+    const session = await addNewUser(newUser.username, newUser.email, newUser.password);
+    res.send(session.user.username);
 });
 
-// LOG IN USER
+// 
+app.post('/users/login', async (req, res) => {
+
+    req.session.regenerate( async (err) => {
+        const user = req.body;
+        req.session.username = await checkPassHash(user.email, user.password);
+        const response = { username: req.session.username };
+        res.send(response);
+    }); // super important for security!
 
 
-// LOG OUT USER
-app.get('/logout', function (req, res) {
-    req.session.destroy();
-    res.end('/');
+});
+
+// 
+app.post('/logout', function (req, res) {
+    req.session.destroy((err) => {
+        res.end('/');
+    });
 });
 
 // STATIC ROUTES

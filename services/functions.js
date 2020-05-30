@@ -1,6 +1,5 @@
 import knex from '../database.js';
 import { hashPass, compareHash } from './auth.js';
-import session from 'express-session';
 
 
 // RETURNS AND ARRAY OF OBJECTS
@@ -9,31 +8,33 @@ import session from 'express-session';
 //         .returning('date_set', 'name', 'userid', 'grade', 'notes');
 // };
 
-// ADD NEW USER FUNCTION & RETURN USERNAME
+
+/**
+ * 
+ * @param {string} username 
+ * @param {string} email 
+ * @param {string} password 
+ * @returns {string} username or null
+ */
 export const addNewUser = async (username, email, password) => {
-    const user = await knex('users')
+    const [user] = await knex('users')
         .insert({ username, email, password: await hashPass(password) })
         .returning('username');
-    return user[0];
+    return user;
 };
 
-// LOG IN EXISTING USER & RETURN USERNAME
-export const getUserByEmail = async email => {
-    const user = await knex('users')
+/**
+ * Checks provided password with database.
+ * @param {string} email 
+ * @param {string} password 
+ * @returns {string} username or null
+ */
+export const checkPassHash = async (email, password) => {
+    const [user] = await knex('users')
         .select('username', 'password')
         .where({ email })
         .returning('username', 'password');
-    return user[0].username;
-};
-
-export const loginUser = async (email, password, { session }) => {
-    
-    // THIS NEEDS WORK!
-    
-    
-    const userPass = await getUserByEmail(email);
-    const matches = await compareHash(password, userPass);
-    session.user = matches ? user : null;
-    console.log(session);
-    return session;
+    if (user == null) return null;
+    const matches = await compareHash(password, user.password);
+    return matches ? user.username : null;
 };

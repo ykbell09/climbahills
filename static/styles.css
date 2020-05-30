@@ -144,8 +144,8 @@ h1::after {
 .form-popup {
   display: none;
   position: fixed;
-  top: 10%;
-  right: 1%;
+  top: 60px;
+  right: 5px;
 
   border: 1px solid var(--white);
   border-radius: 5px;
