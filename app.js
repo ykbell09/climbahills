@@ -20,11 +20,10 @@ app.use(session({
     sameSite: true
 }));
 
-
-// SIGN UP NEW USER ----- NEED HELP! 
-app.post('/users', async (req, res) => {
+app.post('/users/join', async (req, res) => {
     const newUser = req.body;
-    const response = await addNewUser(newUser.username, newUser.email, newUser.password);
+    req.session.username = await addNewUser(newUser.username, newUser.email, newUser.password);
+    const response = { username: req.session.username };
     res.send(response);
 });
 

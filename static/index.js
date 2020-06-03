@@ -67,7 +67,7 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
     const confirmPass = document.querySelector('#confirm-pass').value;
     if (signUpPass !== confirmPass) alert('Ooooops! Your passwords do not match!');
 
-    fetch('/users', {
+    fetch('/users/join', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
