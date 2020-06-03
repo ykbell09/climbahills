@@ -25,13 +25,13 @@ document.querySelector('#login-form').addEventListener('submit', (e) => {
     })
         .then(response => response.json())
         .then(data => {
-        
+
             document.querySelector('#join-us').innerHTML = `welcome, ${data.username}`;
             document.querySelector('#log-in-button').style.display = 'none';
             document.querySelector('#log-out-button').style.display = 'inline';
             document.querySelector('#login-form').style.display = 'none';
             if (data.setter == true) document.querySelector('#add-problem').style.display = 'block';
-            
+
         });
 });
 
@@ -66,12 +66,12 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
     })
         .then(response => response.json())
         .then(data => {
-          
+
             document.querySelector('#sign-up').style.display = 'none';
             document.querySelector('#join-us').innerHTML = `welcome, ${data}`;
             document.querySelector('#log-in-button').style.display = 'none';
-            document.querySelector('#log-out-button').style.display = 'inline';          
-            
+            document.querySelector('#log-out-button').style.display = 'inline';
+
         });
 })
 
@@ -82,4 +82,18 @@ document.querySelector('#log-out-button').addEventListener('click', () => {
         .then(window.location.href = '/index.html');
 });
 
-// document.addEventListener('DOMContentLoaded', () => { });
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('/users/reload', {
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => {
+
+            document.querySelector('#join-us').innerHTML = `welcome, ${data.username}`;
+            document.querySelector('#log-in-button').style.display = 'none';
+            document.querySelector('#log-out-button').style.display = 'inline';
+            document.querySelector('#login-form').style.display = 'none';
+            if (data.setter == true) document.querySelector('#add-problem').style.display = 'block';
+        
+        });         
+});

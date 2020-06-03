@@ -34,6 +34,10 @@ app.post('/users/join', async (req, res) => {
     res.send(req.session.username);
 });
 
+app.post('/users/reload', async (req, res) => {
+    res.send(req.session.user);
+});
+
 app.post('/users/logout', function (req, res) {
     req.session.destroy((err) => {
         res.end();
