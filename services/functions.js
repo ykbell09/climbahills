@@ -21,18 +21,18 @@ export const addNewUser = async (username, email, rawPass) => {
 };
 
 /**
- * Checks provided password with database.
+ * Checks provided password against database.
  * @param {string} email 
  * @param {string} password 
- * @returns {string} username or null
+ * @returns {object} user or null
  */
 export const checkPassHash = async (email, password) => {
     const [user] = await knex('users')
-        .select('username', 'password')
+        .select('username', 'password', 'setter')
         .where({ email })
-        .returning('username', 'password');
-    console.log(user);
+        .returning('username', 'password', 'setter');
     if (user == null) return null;
     const matches = await compareHash(password, user.password);
-    return matches ? user.username : null;
+    delete user.password;
+    return matches ? user : null;
 };

@@ -1,15 +1,10 @@
-// document.querySelector('#climb-on').addEventListener('click', () => fetch('/problems')
-//     .then(response => response.json()) // returns response as json data
-//     .then(data => {
-
-//         console.log(data);
-
-//     })
-// );
-
 document.querySelector('#log-in-button').addEventListener('click', () => {
     document.querySelector('#login').style.display = 'block';
     document.querySelector('#sign-up').style.display = 'none';
+});
+
+document.querySelector('#cancel-login').addEventListener('click', () => {
+    document.querySelector('#login').style.display = 'none';
 });
 
 document.querySelector('#login-form').addEventListener('submit', (e) => {
@@ -31,25 +26,15 @@ document.querySelector('#login-form').addEventListener('submit', (e) => {
         .then(response => response.json())
         .then(data => {
         
-            // show welcome message -- change this to add element in topnav
             document.querySelector('#join-us').innerHTML = `welcome, ${data.username}`;
-
-            // show log out button
             document.querySelector('#log-in-button').style.display = 'none';
             document.querySelector('#log-out-button').style.display = 'inline';
-
-            console.log(data);
+            document.querySelector('#login-form').style.display = 'none';
+            if (data.setter == true) document.querySelector('#add-problem').style.display = 'block';
             
         });
-
-
 });
 
-document.querySelector('#cancel-login').addEventListener('click', () => {
-    document.querySelector('#login').style.display = 'none';
-});
-
-// SIGN UP FORM CODE
 document.querySelector('#join-us').addEventListener('click', () => {
     document.querySelector('#sign-up').style.display = 'block';
     document.querySelector('#login').style.display = 'none';
@@ -79,31 +64,22 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
             password: signUpPass
         })
     })
-        .then(response => {
-            console.log(response);
-            const test = response.json();
-            console.log(test);
-        })
-        
+        .then(response => response.json())
         .then(data => {
-
-            console.log(data);
-            
-            // hide join us link
+          
             document.querySelector('#sign-up').style.display = 'none';
-            
-            // show welcome message -- change this to add element in topnav
             document.querySelector('#join-us').innerHTML = `welcome, ${data}`;
-
-            // show log out button
             document.querySelector('#log-in-button').style.display = 'none';
-            document.querySelector('#log-out-button').style.display = 'inline';
-
-            // sheck setter status and if true, show add problem button
-            
+            document.querySelector('#log-out-button').style.display = 'inline';          
             
         });
-
-
-
 })
+
+document.querySelector('#log-out-button').addEventListener('click', () => {
+    fetch('/users/logout', {
+        method: 'POST'
+    })
+        .then(window.location.href = '/index.html');
+});
+
+// document.addEventListener('DOMContentLoaded', () => { });

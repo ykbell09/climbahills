@@ -26,7 +26,7 @@ describe('user functions', () => {
         it('tries to add a duplicate value', async () => {
             
             const result = await addNewUser(username, email, password);
-            expect(result).to.be.a('null');
+            expect(result).to.be.null;
             
         });
 
@@ -37,8 +37,7 @@ describe('user functions', () => {
         it('checks provided password against database', async () => {
             
             const result = await checkPassHash(email, password);
-            console.log('this is the test result: ' + result);
-            expect(result).to.equal(username);
+            expect(result.username).to.equal(username);
 
         });
 

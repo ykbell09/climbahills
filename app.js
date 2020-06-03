@@ -20,25 +20,23 @@ app.use(session({
     sameSite: true
 }));
 
-app.post('/users/join', async (req, res) => {
-    const newUser = req.body;
-    req.session.username = await addNewUser(newUser.username, newUser.email, newUser.password);
-    const response = { username: req.session.username };
-    res.send(response);
-});
-
 app.post('/users/login', async (req, res) => {
     req.session.regenerate( async (err) => { // super important for security!
         const user = req.body;
-        req.session.username = await checkPassHash(user.email, user.password);
-        const response = { username: req.session.username };
-        res.send(response);
+        req.session.user = await checkPassHash(user.email, user.password);
+        res.send(req.session.user);
     }); 
 });
 
-app.post('/logout', function (req, res) {
+app.post('/users/join', async (req, res) => {
+    const newUser = req.body;
+    req.session.username = await addNewUser(newUser.username, newUser.email, newUser.password);
+    res.send(req.session.username);
+});
+
+app.post('/users/logout', function (req, res) {
     req.session.destroy((err) => {
-        res.end('/');
+        res.end();
     });
 });
 

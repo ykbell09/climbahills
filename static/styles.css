@@ -247,3 +247,8 @@ h1::after {
   background-size: cover;
   min-height: 300px;
 }
+
+/* PROBLEMS */
+#add-problem {
+  display: none;
+}
