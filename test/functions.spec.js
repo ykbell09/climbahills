@@ -19,7 +19,7 @@ describe('user functions', () => {
         it('add new user to database', async () => {
             
             const result = await addNewUser(username, email, password);
-            expect(result).to.equal(username);
+            expect(result.username).to.equal(username);
             
         });
         

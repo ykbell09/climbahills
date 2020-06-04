@@ -1,3 +1,20 @@
+const loggedInDisplay = (user) => {
+    const topNavUser = document.querySelector('#top-nav-user');
+    const userWelcome = document.createElement('p');
+    // userWelcome.className = '';
+    userWelcome.innerHTML = `welcome, ${user.username}`;
+    topNavUser.insertBefore(userWelcome, topNavUser.childNodes[0]);
+
+    document.querySelector('#join-us').style.display = 'none';
+    document.querySelector('#log-in-button').style.display = 'none';
+    document.querySelector('#log-out-button').style.display = 'inline';
+    document.querySelector('#login').style.display = 'none';
+    document.querySelector('#sign-up').style.display = 'none';
+    
+    if (user.setter == true) document.querySelector('#add-problem').style.display = 'block';
+
+}
+
 document.querySelector('#log-in-button').addEventListener('click', () => {
     document.querySelector('#login').style.display = 'block';
     document.querySelector('#sign-up').style.display = 'none';
@@ -11,6 +28,7 @@ document.querySelector('#login-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const loginEmail = document.querySelector('#login-email').value;
     const loginPass = document.querySelector('#login-pass').value;
+    if (document.querySelector('.login-alert') !== null) document.querySelector('.login-alert').remove();
 
     fetch('/users/login', {
         method: 'POST',
@@ -25,13 +43,15 @@ document.querySelector('#login-form').addEventListener('submit', (e) => {
     })
         .then(response => response.json())
         .then(data => {
-
-            document.querySelector('#join-us').innerHTML = `welcome, ${data.username}`;
-            document.querySelector('#log-in-button').style.display = 'none';
-            document.querySelector('#log-out-button').style.display = 'inline';
-            document.querySelector('#login-form').style.display = 'none';
-            if (data.setter == true) document.querySelector('#add-problem').style.display = 'block';
-
+            if (data.username !== null) {
+                loggedInDisplay(data);
+            } else {
+                const loginForm = document.querySelector('#login-form');
+                const loginAlert = document.createElement('p');
+                loginAlert.className = 'login-alert';
+                loginAlert.innerHTML = 'Sorry, that email or password is not correct. Please email us if you have forgotten your password.'
+                loginForm.appendChild(loginAlert);
+            } 
         });
 });
 
@@ -50,29 +70,40 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
     const signUpEmail = document.querySelector('#sign-up-email').value;
     const signUpPass = document.querySelector('#sign-up-pass').value;
     const confirmPass = document.querySelector('#confirm-pass').value;
-    if (signUpPass !== confirmPass) alert('Ooooops! Your passwords do not match!');
+    if (document.querySelector('.login-alert') !== null) document.querySelector('.login-alert').remove();
 
-    fetch('/users/join', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            username: signUpName,
-            email: signUpEmail,
-            password: signUpPass
+    if (signUpPass !== confirmPass) {
+        const signUpForm = document.querySelector('#sign-up-form');
+        const signUpAlert = document.createElement('p');
+        signUpAlert.className = 'login-alert';
+        signUpAlert.innerHTML = 'Sorry, there is already an account assocaited with this password. Please email us if you have forgotten your password'
+        signUpForm.appendChild(signUpAlert);
+    } else {
+        fetch('/users/join', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                username: signUpName,
+                email: signUpEmail,
+                password: signUpPass
+            })
         })
-    })
-        .then(response => response.json())
-        .then(data => {
+            .then(response => response.json())
+            .then(data => {
 
-            document.querySelector('#sign-up').style.display = 'none';
-            document.querySelector('#join-us').innerHTML = `welcome, ${data}`;
-            document.querySelector('#log-in-button').style.display = 'none';
-            document.querySelector('#log-out-button').style.display = 'inline';
-
-        });
+                if (data.username !== null) { 
+                    loggedInDisplay(data);
+                } else {
+                    const signUpForm = document.querySelector('#sign-up-form');
+                    const signUpAlert = document.createElement('p');
+                    signUpAlert.innerHTML = 'There is already an account associated with this email.'
+                    signUpForm.appendChild(signUpAlert);
+                }
+            });
+    }
 })
 
 document.querySelector('#log-out-button').addEventListener('click', () => {
@@ -88,12 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
         .then(response => response.json())
         .then(data => {
-
-            document.querySelector('#join-us').innerHTML = `welcome, ${data.username}`;
-            document.querySelector('#log-in-button').style.display = 'none';
-            document.querySelector('#log-out-button').style.display = 'inline';
-            document.querySelector('#login-form').style.display = 'none';
-            if (data.setter == true) document.querySelector('#add-problem').style.display = 'block';
-        
-        });         
+            if (data.username != null) loggedInDisplay(data);         
+        });
 });

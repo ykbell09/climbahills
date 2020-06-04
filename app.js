@@ -23,19 +23,29 @@ app.use(session({
 app.post('/users/login', async (req, res) => {
     req.session.regenerate( async (err) => { // super important for security!
         const user = req.body;
-        req.session.user = await checkPassHash(user.email, user.password);
-        res.send(req.session.user);
+        const userObject = await checkPassHash(user.email, user.password);
+        if (userObject == null) {
+            res.send({ user: null })
+        } else {
+            req.session.user = userObject;
+            res.send(userObject);
+        }
     }); 
 });
 
 app.post('/users/join', async (req, res) => {
     const newUser = req.body;
-    req.session.username = await addNewUser(newUser.username, newUser.email, newUser.password);
-    res.send(req.session.username);
+    const userObject = await addNewUser(newUser.username, newUser.email, newUser.password);
+    if (userObject == null) {
+        res.send({ user: null })
+    } else {
+        req.session.user = userObject;
+        res.send(userObject);
+    }
 });
 
-app.post('/users/reload', async (req, res) => {
-    res.send(req.session.user);
+app.post('/users/reload', async (req, res) => {  
+    res.send(req.session);
 });
 
 app.post('/users/logout', function (req, res) {

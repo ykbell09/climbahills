@@ -165,6 +165,12 @@ h1::after {
   text-align: center;
 }
 
+.login-alert {
+  max-width: 170px;
+  color: darkred;
+  font-size: .7em;
+}
+
 /* NAVIGATION */
 .nav {
   overflow: hidden;
@@ -216,6 +222,7 @@ h1::after {
 #join-us:hover {
  background-color: var(--ltorange);
 }
+
 
 /* BODY CONTENT */
 .grid-container {

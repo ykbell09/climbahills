@@ -6,13 +6,13 @@ import { hashPass, compareHash } from './auth.js';
  * @param {string} username 
  * @param {string} email 
  * @param {string} password 
- * @returns {string} username or null
+ * @returns {object} user or null
  */
 export const addNewUser = async (username, email, rawPass) => {
     const hashedPass = await hashPass(rawPass);
     const user = await knex('users')
         .insert({ username, email, password: hashedPass })
-        .returning('username')
+        .returning(['username', 'setter', 'admin'])
         .catch(function () {
             return null;
         });
@@ -27,12 +27,15 @@ export const addNewUser = async (username, email, rawPass) => {
  * @returns {object} user or null
  */
 export const checkPassHash = async (email, password) => {
-    const [user] = await knex('users')
-        .select('username', 'password', 'setter')
+    const user = await knex('users')
+        .select()
         .where({ email })
-        .returning('username', 'password', 'setter');
-    if (user == null) return null;
-    const matches = await compareHash(password, user.password);
-    delete user.password;
-    return matches ? user : null;
+        .returning(['username', 'password', 'setter', 'admin'])
+        .catch(function () {
+            return null;
+        });
+    if (user[0] == null) return null;
+    const matches = await compareHash(password, user[0].password);
+    delete user[0].password;
+    return matches ? user[0] : null;
 };
