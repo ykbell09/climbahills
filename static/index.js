@@ -1,11 +1,15 @@
-const loggedInDisplay = (user) => {
+/**
+ * Updates the page display if the user is logged in.
+ * @param {object} user 
+ */
+const loggedInDisplay = user => {
     const topNavUser = document.querySelector('#top-nav-user');
     const userWelcome = document.createElement('p');
     // userWelcome.className = '';
     userWelcome.innerHTML = `welcome, ${user.username}`;
     topNavUser.insertBefore(userWelcome, topNavUser.childNodes[0]);
 
-    document.querySelector('#join-us').style.display = 'none';
+    document.querySelector('#sign-up-link').style.display = 'none';
     document.querySelector('#log-in-button').style.display = 'none';
     document.querySelector('#log-out-button').style.display = 'inline';
     document.querySelector('#login').style.display = 'none';
@@ -55,7 +59,7 @@ document.querySelector('#login-form').addEventListener('submit', (e) => {
         });
 });
 
-document.querySelector('#join-us').addEventListener('click', () => {
+document.querySelector('#sign-up-link').addEventListener('click', () => {
     document.querySelector('#sign-up').style.display = 'block';
     document.querySelector('#login').style.display = 'none';
 });
@@ -76,10 +80,10 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
         const signUpForm = document.querySelector('#sign-up-form');
         const signUpAlert = document.createElement('p');
         signUpAlert.className = 'login-alert';
-        signUpAlert.innerHTML = 'Sorry, there is already an account assocaited with this password. Please email us if you have forgotten your password'
+        signUpAlert.innerHTML = 'Please check your password and try again.';
         signUpForm.appendChild(signUpAlert);
     } else {
-        fetch('/users/join', {
+        fetch('/users/sign-up', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

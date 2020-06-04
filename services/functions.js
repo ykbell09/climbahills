@@ -1,6 +1,8 @@
 import knex from '../database.js';
 import { hashPass, compareHash } from './auth.js';
 
+const userObject = ['id', 'username', 'password', 'setter', 'admin']
+
 /**
  * Adds a new user to the database.
  * @param {string} username 
@@ -12,11 +14,12 @@ export const addNewUser = async (username, email, rawPass) => {
     const hashedPass = await hashPass(rawPass);
     const user = await knex('users')
         .insert({ username, email, password: hashedPass })
-        .returning(['username', 'setter', 'admin'])
+        .returning(userObject)
         .catch(function () {
             return null;
         });
     if (user == null) return null;
+    delete user[0].password;
     return user[0];
 };
 
@@ -30,7 +33,7 @@ export const checkPassHash = async (email, password) => {
     const user = await knex('users')
         .select()
         .where({ email })
-        .returning(['username', 'password', 'setter', 'admin'])
+        .returning(userObject)
         .catch(function () {
             return null;
         });

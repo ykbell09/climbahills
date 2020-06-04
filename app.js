@@ -33,7 +33,7 @@ app.post('/users/login', async (req, res) => {
     }); 
 });
 
-app.post('/users/join', async (req, res) => {
+app.post('/users/sign-up', async (req, res) => {
     const newUser = req.body;
     const userObject = await addNewUser(newUser.username, newUser.email, newUser.password);
     if (userObject == null) {

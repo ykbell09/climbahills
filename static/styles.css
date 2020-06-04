@@ -1,6 +1,7 @@
 :root {
   --green: #52f75a;
   --ltgreen: #acfcb0;
+  --dkorange: #ff7b00;
   --orange: #f7a900;
   --ltorange: #f0c059;
   --black: rgb(48, 46, 46);
@@ -58,20 +59,22 @@ button:hover {
   cursor: pointer;
 }
 
-.join-us,
+.sign-up-link,
 button a {
   color: inherit;
   text-decoration: inherit;
 }
 
-/* .join-us {
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  font-weight: 700;
-  font-size: 1em;
-  color: var(--black);
-  cursor: pointer;
-} */
+a,
+a:visited {
+  color: var(--dkorange);
+  text-decoration: none;
+}
+
+a:hover
+a:active {
+  text-decoration: underline;
+}
 
 .cancel {
   background-color: var(--orange);
@@ -167,8 +170,8 @@ h1::after {
 
 .login-alert {
   max-width: 170px;
-  color: darkred;
-  font-size: .7em;
+  color: var(--dkorange);
+  font-size: .8em;
 }
 
 /* NAVIGATION */
@@ -219,7 +222,7 @@ h1::after {
 }
 
 .nav a:hover,
-#join-us:hover {
+#sign-up-link:hover {
  background-color: var(--ltorange);
 }
 

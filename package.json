@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ykbell09/climbahills.git"
+  },
   "scripts": {
     "test": "NODE_ENV=development mocha --exit -r esm test/functions.spec.js",
     "local-start": "NODE_ENV=development nodemon -r esm app.js",
