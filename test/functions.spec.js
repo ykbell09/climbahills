@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import knex from '../database';
 import { addNewUser, checkPassHash } from '../services/functions';
+import { resetPassword } from '../services/auth';
 
 describe('user functions', () => {
 
@@ -12,6 +13,10 @@ describe('user functions', () => {
         await knex('users')
             .where({ username: username })
             .del();
+    });
+
+    before(async () => {
+        await knex('reset_password').truncate();
     });
 
     describe('addNewUser', () => {
@@ -56,6 +61,27 @@ describe('user functions', () => {
             expect(result).to.be.null;
 
         });
+    });
+
+    describe('resetPassword', () => {
+
+        it('WIP - allows user to change password', async () => {
+
+            const getTestId = async (email) => {
+                const id = await knex('users')
+                    .select('id')
+                    .where({email})
+                    .returning('id');
+                return id;
+            };
+
+            const testId = await getTestId(email);
+
+            const result = await resetPassword(testId[0].id);
+            // expect(result[0].user_id).to.equal(testId[0].id);
+
+        });
+
     });
 
 })

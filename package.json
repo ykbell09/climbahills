@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/ykbell09/climbahills.git"
+    "type": "git",
+    "url": "git+https://github.com/ykbell09/climbahills.git"
   },
   "scripts": {
     "test": "NODE_ENV=development mocha --exit -r esm test/functions.spec.js",
@@ -23,6 +23,7 @@
     "express-session": "^1.17.1",
     "knex": "^0.21.1",
     "mocha": "^7.1.2",
+    "nodemailer": "^6.4.8",
     "pg": "^8.2.1"
   },
   "engines": {

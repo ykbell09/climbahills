@@ -77,7 +77,7 @@ if (NODE_ENV !== 'development' && NODE_ENV !== 'test') {
 // LOCAL PORT 
 const PORT = 8000;
 app.listen(PORT, () =>
-    console.log(`listening on port ${PORT} -- YOU CAN DO THIS!`));
+    console.log(`listening on port ${PORT} -- YOU\'RE TOTALLY DOING THIS!`));
 
 // DEPLOY CODE
 // app.listen(process.env.PORT, () =>
