@@ -4,6 +4,8 @@ import session from 'express-session';
 import ConnectSessionKnex from 'connect-session-knex';
 import { addNewUser, checkPassHash } from './services/functions.js';
 
+import _ from './env';
+
 const app = express();
 app.use(express.json());
 
@@ -16,7 +18,7 @@ app.use(session({
     cookie: { maxAge: ONE_WEEK },
     resave: false,
     saveUninitialized: true,
-    secret: '$2b$10$2wyQTyw4vsK40hq7AnVguboKTLbEnrzh',
+    secret: 'the cats pajamas',
     sameSite: true
 }));
 
@@ -74,12 +76,7 @@ if (NODE_ENV !== 'development' && NODE_ENV !== 'test') {
     })
 };
 
-// LOCAL PORT 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () =>
-    console.log(`listening on port ${PORT} -- YOU\'RE TOTALLY DOING THIS!`));
-
-// DEPLOY CODE
-// app.listen(process.env.PORT, () =>
-//     console.log(`listening on port ${process.env.PORT}`)
-// );
+    console.log(`listening on port ${PORT} -- YOU\'RE TOTALLY DOING THIS!`)
+);
