@@ -18,7 +18,7 @@ app.use(session({
     cookie: { maxAge: ONE_WEEK },
     resave: false,
     saveUninitialized: true,
-    secret: 'the cats pajamas',
+    secret: process.env.KNEX_SESSION_STORE_SECRET,
     sameSite: true
 }));
 

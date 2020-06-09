@@ -20,7 +20,6 @@ export const addNewUser = async (username, email, rawPass) => {
         });
     if (user == null) return null;
     delete user[0].password;
-    console.log(process.env.TEST_VAR);
     return user[0];
 };
 
