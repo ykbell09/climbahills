@@ -169,9 +169,23 @@ h1::after {
 }
 
 .login-alert {
+  cursor: pointer;
+}
+
+.login-alert,
+.form-msg {
+  font-size: .8em;
+}
+
+.login-alert, 
+.form-msg,
+.success-msg {
   max-width: 170px;
   color: var(--dkorange);
-  font-size: .8em;
+}
+
+.success-msg {
+  font-weight: bold;
 }
 
 /* NAVIGATION */

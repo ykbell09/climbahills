@@ -1,5 +1,5 @@
 import knex from '../database.js';
-import { hashPass, compareHash } from './auth.js';
+import { hashPass, compareHash, resetPasswordEmail } from './auth.js';
 
 const userObject = ['id', 'username', 'password', 'setter', 'admin']
 
@@ -41,4 +41,17 @@ export const checkPassHash = async (email, password) => {
     const matches = await compareHash(password, user[0].password);
     delete user[0].password;
     return matches ? user[0] : null;
+};
+
+export const sendPassResetEmail = async (email) => {
+    const [user] = await knex('users')
+        .select('id', 'username', )
+        .where({ email })
+        .returning('id', 'username')
+        .catch(function () {
+            return null;
+        });
+    console.log(user);
+    return await resetPasswordEmail(user.username, user.id, email);
+// return some sort of confirmation
 };

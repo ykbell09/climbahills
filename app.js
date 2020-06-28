@@ -1,10 +1,9 @@
 import express from 'express';
+import _ from './env';
 import knex from './database';
 import session from 'express-session';
 import ConnectSessionKnex from 'connect-session-knex';
 import { addNewUser, checkPassHash } from './services/functions.js';
-
-import _ from './env';
 
 const app = express();
 app.use(express.json());

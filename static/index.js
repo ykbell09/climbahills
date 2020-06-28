@@ -126,3 +126,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.username != null) loggedInDisplay(data);         
         });
 });
+
+document.querySelector('#forgot-pass-link').addEventListener('click', () => {
+    document.querySelector('#forgot-pass').style.display = 'block';
+    document.querySelector('#login').style.display = 'none';
+});
+
+document.querySelector('#cancel-forgot-pass').addEventListener('click', () => {
+    document.querySelector('#forgot-pass').style.display = 'none';
+});
+
+document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+
+    if (document.querySelector('.success-msg') !== null) document.querySelector('.success-msg').remove();
+    const message = document.querySelector('#forgot-pass-msg');
+    const successMsg = document.createElement('p');
+    successMsg.innerHTML = 'success! check your email';
+    successMsg.className = 'success-msg';
+    message.appendChild(successMsg);
+
+
+})

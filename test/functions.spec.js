@@ -1,12 +1,11 @@
 import { expect } from 'chai';
 import knex from '../database';
-import { addNewUser, checkPassHash } from '../services/functions';
-// import { resetPassword } from '../services/auth';
+import { addNewUser, checkPassHash, sendPassResetEmail } from '../services/functions';
 
 describe('user functions', () => {
 
     const username = 'testUser';
-    const email = 'testUser@test.com';
+    const email = 'climbahills@gmail.com';
     const password = 'test';
 
     before(async () => {
@@ -63,25 +62,16 @@ describe('user functions', () => {
         });
     });
 
-    // describe('resetPassword', () => {
+    describe('sendPassResetEmail', () => {
 
-    //     it('WIP - allows user to change password', async () => {
+        it('WIP -- should send a pw reset email to user', async () => {
 
-    //         const getTestId = async (email) => {
-    //             const id = await knex('users')
-    //                 .select('id')
-    //                 .where({email})
-    //                 .returning('id');
-    //             return id;
-    //         };
+            const result = await sendPassResetEmail(email);
+            
+            // expect(result).to.be.an('object');
 
-    //         const testId = await getTestId(email);
+        });
 
-    //         const result = await resetPassword(testId[0].id);
-    //         // expect(result[0].user_id).to.equal(testId[0].id);
-
-    //     });
-
-    // });
+    });
 
 })

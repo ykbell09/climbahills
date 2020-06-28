@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import knex from '../database';
 import nodemailer from 'nodemailer';
+import _ from '../env';
 
 const saltRounds = 10;
 export const hashPass = async rawPass =>
@@ -29,28 +30,45 @@ const generateRandomKey = () => {
 const generateExpiration = () => {
     const date = new Date();
     const today = date.getDate();
-    date.setDate(today+1);
-    return date;    
+    date.setDate(today + 1);
+    return date;
 };
 
-// const transport = nodemailer.createTransport({
 
-// })
-
-// const emailPasswordReset = (user_id, key) => {
-
-// };
-
-
-export const resetPassword = async user_id => {
+export const resetPasswordEmail = async (username, user_id, email) => {
     const key = generateRandomKey();
     const expiration = generateExpiration();
     await knex('reset_password')
         .insert({ user_id, key, expiration });
-    // emailPasswordReset(user_id, key);
     
-    return test;
+    // WORK ON THIS
+    const transport = nodemailer.createTransport({
+        service: process.env.EMAIL_SERVICE,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Climb A-Hills Password Reset',
+        text: `Hi there, ${username}!
+    
+    We got your request to reset your password. CLICK HERE to set a new password using this key (${key}) to verify your identity. Hurry, because the key expires soon! If you didn't request this password change, you can ignore this message.
+    
+    Thanks!
+    The A-Hills Team`
+    };
+
+    const info = await transport.sendMail(mailOptions);
+    console.log(info.messageId);
+    resetPasswordEmail().catch(console.error);
 };
+    
+
+
 
 // const [{ expires, key }] = await Knex('reset_password')
 //     .select('key')
