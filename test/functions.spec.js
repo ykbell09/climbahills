@@ -7,6 +7,7 @@ describe('user functions', () => {
     const username = 'testUser';
     const email = 'climbahills@gmail.com';
     const password = 'test';
+    const badEmail = 'badEmail@email.com';
 
     before(async () => {
         await knex('users')
@@ -47,7 +48,6 @@ describe('user functions', () => {
 
         it('user email not in database', async () => {
             
-            const badEmail = 'badEmail@email.com';
             const result = await checkPassHash(badEmail, password);
             expect(result).to.be.null;
 
@@ -64,11 +64,17 @@ describe('user functions', () => {
 
     describe('sendPassResetEmail', () => {
 
-        it('WIP -- should send a pw reset email to user', async () => {
+        it('returns an email confirmation object', async () => {
 
             const result = await sendPassResetEmail(email);
-            
-            // expect(result).to.be.an('object');
+            expect(result).to.be.an('object');
+
+        });
+
+        it('WIP -- bad email pw reset', async () => {
+
+            const result = await sendPassResetEmail(badEmail);
+            expect(result).to.be.null;
 
         });
 

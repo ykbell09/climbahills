@@ -34,14 +34,18 @@ const generateExpiration = () => {
     return date;
 };
 
-
+/**
+ * WIP
+ * @param {string} username 
+ * @param {integer} user_id 
+ * @param {string} email 
+ */
 export const resetPasswordEmail = async (username, user_id, email) => {
     const key = generateRandomKey();
     const expiration = generateExpiration();
     await knex('reset_password')
         .insert({ user_id, key, expiration });
     
-    // WORK ON THIS
     const transport = nodemailer.createTransport({
         service: process.env.EMAIL_SERVICE,
         auth: {
@@ -63,8 +67,10 @@ export const resetPasswordEmail = async (username, user_id, email) => {
     };
 
     const info = await transport.sendMail(mailOptions);
-    console.log(info.messageId);
-    resetPasswordEmail().catch(console.error);
+    resetPasswordEmail().catch(function () {
+        return null;
+    });
+    return info;
 };
     
 

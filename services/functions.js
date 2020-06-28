@@ -51,7 +51,8 @@ export const sendPassResetEmail = async (email) => {
         .catch(function () {
             return null;
         });
-    console.log(user);
-    return await resetPasswordEmail(user.username, user.id, email);
+    if (user == undefined) return null;
+    const result = await resetPasswordEmail(user.username, user.id, email);
+    return result;
 // return some sort of confirmation
 };
