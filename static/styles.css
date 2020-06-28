@@ -168,7 +168,8 @@ h1::after {
   text-align: center;
 }
 
-.login-alert {
+.login-alert,
+#reset-msg-link {
   cursor: pointer;
 }
 
@@ -179,12 +180,14 @@ h1::after {
 
 .login-alert, 
 .form-msg,
-.success-msg {
+.reset-msg,
+#reset-msg-link {
   max-width: 170px;
   color: var(--dkorange);
 }
 
-.success-msg {
+.reset-msg,
+#reset-msg-link {
   font-weight: bold;
 }
 

@@ -14,7 +14,7 @@ const loggedInDisplay = user => {
     document.querySelector('#log-out-button').style.display = 'inline';
     document.querySelector('#login').style.display = 'none';
     document.querySelector('#sign-up').style.display = 'none';
-    
+
     if (user.setter == true) document.querySelector('#add-problem').style.display = 'block';
 
 }
@@ -22,6 +22,7 @@ const loggedInDisplay = user => {
 document.querySelector('#log-in-button').addEventListener('click', () => {
     document.querySelector('#login').style.display = 'block';
     document.querySelector('#sign-up').style.display = 'none';
+    document.querySelector('#forgot-pass').style.display = 'none';
 });
 
 document.querySelector('#cancel-login').addEventListener('click', () => {
@@ -55,13 +56,14 @@ document.querySelector('#login-form').addEventListener('submit', (e) => {
                 loginAlert.className = 'login-alert';
                 loginAlert.innerHTML = 'Sorry, that email or password is not correct. Please email us if you have forgotten your password.'
                 loginForm.appendChild(loginAlert);
-            } 
+            }
         });
 });
 
 document.querySelector('#sign-up-link').addEventListener('click', () => {
     document.querySelector('#sign-up').style.display = 'block';
     document.querySelector('#login').style.display = 'none';
+    document.querySelector('#forgot-pass').style.display = 'none';
 });
 
 document.querySelector('#cancel-signup').addEventListener('click', () => {
@@ -98,7 +100,7 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
             .then(response => response.json())
             .then(data => {
 
-                if (data.username !== null) { 
+                if (data.username !== null) {
                     loggedInDisplay(data);
                 } else {
                     const signUpForm = document.querySelector('#sign-up-form');
@@ -123,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.username != null) loggedInDisplay(data);         
+            if (data.username != null) loggedInDisplay(data);
         });
 });
 
@@ -134,18 +136,55 @@ document.querySelector('#forgot-pass-link').addEventListener('click', () => {
 
 document.querySelector('#cancel-forgot-pass').addEventListener('click', () => {
     document.querySelector('#forgot-pass').style.display = 'none';
+    if (document.querySelector('.reset-msg') !== null) document.querySelector('.reset-msg').remove();
 });
 
+// WIP
 document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
     e.preventDefault();
+    const userEmail = document.querySelector('#forgot-pass-email').value;
+
+    fetch('/users/forgot-pass', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            email: userEmail
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (document.querySelector('.reset-msg') !== null) document.querySelector('.reset-msg').remove();
+
+            if (data.emailResult !== null) {
+                const message = document.querySelector('#forgot-pass-msg');
+                const successMsg = document.createElement('p');
+                successMsg.innerHTML = 'success! check your email';
+                successMsg.className = 'reset-msg';
+                message.appendChild(successMsg);
+            } else {
+                const message = document.querySelector('#forgot-pass-msg');
+                const failedMsg = document.createElement('p');
+                failedMsg.innerHTML = 'there is no account associated with that email';
+                failedMsg.className = 'reset-msg';
+                message.appendChild(failedMsg);
+                const signUpLink = document.createElement('p');
+                signUpLink.innerHTML = 'sign up!';
+                signUpLink.id = 'reset-msg-link';
+                failedMsg.appendChild(signUpLink);
+                
+                document.querySelector('#reset-msg-link').addEventListener('click', () => {
+                    document.querySelector('#forgot-pass').style.display = 'none';
+                    document.querySelector('#sign-up').style.display = 'block';
+                });
 
 
-    if (document.querySelector('.success-msg') !== null) document.querySelector('.success-msg').remove();
-    const message = document.querySelector('#forgot-pass-msg');
-    const successMsg = document.createElement('p');
-    successMsg.innerHTML = 'success! check your email';
-    successMsg.className = 'success-msg';
-    message.appendChild(successMsg);
 
 
-})
+            }
+        });
+});
+
+

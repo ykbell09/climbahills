@@ -3,7 +3,7 @@ import _ from './env';
 import knex from './database';
 import session from 'express-session';
 import ConnectSessionKnex from 'connect-session-knex';
-import { addNewUser, checkPassHash } from './services/functions.js';
+import { addNewUser, checkPassHash, sendPassResetEmail } from './services/functions.js';
 
 const app = express();
 app.use(express.json());
@@ -26,7 +26,7 @@ app.post('/users/login', async (req, res) => {
         const user = req.body;
         const userObject = await checkPassHash(user.email, user.password);
         if (userObject == null) {
-            res.send({ user: null })
+            res.send({ user: null });
         } else {
             req.session.user = userObject;
             res.send(userObject);
@@ -38,12 +38,22 @@ app.post('/users/sign-up', async (req, res) => {
     const newUser = req.body;
     const userObject = await addNewUser(newUser.username, newUser.email, newUser.password);
     if (userObject == null) {
-        res.send({ user: null })
+        res.send({ user: null });
     } else {
         req.session.user = userObject;
         res.send(userObject);
     }
 });
+
+app.post('/users/forgot-pass', async (req, res) => {
+    const user = req.body;
+    const emailResult = await sendPassResetEmail(user.email);
+    if (emailResult == null) {
+        res.send({ emailResult: null });
+    } else {
+        res.send(emailResult);
+    }
+})
 
 app.post('/users/reload', async (req, res) => {  
     res.send(req.session);

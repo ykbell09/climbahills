@@ -43,6 +43,11 @@ export const checkPassHash = async (email, password) => {
     return matches ? user[0] : null;
 };
 
+/**
+ * 
+ * @param {string} email 
+ * @returns {object} sentEmail or null
+ */
 export const sendPassResetEmail = async (email) => {
     const [user] = await knex('users')
         .select('id', 'username', )
@@ -52,7 +57,6 @@ export const sendPassResetEmail = async (email) => {
             return null;
         });
     if (user == undefined) return null;
-    const result = await resetPasswordEmail(user.username, user.id, email);
-    return result;
-// return some sort of confirmation
+    const sentEmail = await resetPasswordEmail(user.username, user.id, email);
+    return sentEmail;
 };
