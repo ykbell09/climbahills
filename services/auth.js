@@ -72,13 +72,6 @@ export const resetPasswordEmail = async (username, user_id, email) => {
     });
     return info;
 };
-    
-export const updatePassword = async (email, key, expires, password) => {
-  
-}
-// const [{ expires, key }] = await Knex('reset_password')
-//     .select('key')
-//     .where({ userId });
 
 // if (hasExpired(expires)) throw new Error();
 // if (key !== userKey) throw new Error();
