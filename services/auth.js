@@ -58,12 +58,12 @@ export const resetPasswordEmail = async (username, user_id, email) => {
         from: process.env.EMAIL_USER,
         to: email,
         subject: 'Climb A-Hills Password Reset',
-        text: `Hi there, ${username}!
+        html: `<p>Hi there, ${username}!</p>
     
-    We got your request to reset your password. CLICK HERE to set a new password using this key (${key}) to verify your identity. Hurry, because the key expires soon! If you didn't request this password change, you can ignore this message.
+    <p>We got your request to reset your password. <a href="http://www.climbahills.com/static/reset.html">CLICK HERE</a> to set a new password using this key (${key}) to verify your identity. Hurry, because the key expires soon! If you didn't request this password change, you can ignore this message.</p>
     
-    Thanks!
-    The A-Hills Team`
+    <p>Thanks!<br />
+    The A-Hills Team </p>`
     };
 
     const info = await transport.sendMail(mailOptions);
@@ -73,9 +73,9 @@ export const resetPasswordEmail = async (username, user_id, email) => {
     return info;
 };
     
-
-
-
+export const updatePassword = async (email, key, expires, password) => {
+  
+}
 // const [{ expires, key }] = await Knex('reset_password')
 //     .select('key')
 //     .where({ userId });
