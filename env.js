@@ -1,2 +1,2 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 export default dotenv.config({ silent: true });
