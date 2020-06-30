@@ -17,7 +17,21 @@ const loggedInDisplay = user => {
 
     if (user.setter == true) document.querySelector('#add-problem').style.display = 'block';
 
-}
+};
+
+/**
+ * Checks for any inserted response alerts and removes them.
+ */
+const clearAlertIfExists = () => {
+    if (document.querySelector('.login-alert') !== null) document.querySelector('.login-alert').remove();
+};
+
+/**
+ * Checks for any inserted response messages and removes them.
+ */
+const clearMessageIfExists = () => {
+    if (document.querySelector('.reset-msg') !== null) document.querySelector('.reset-msg').remove();
+};
 
 document.querySelector('#log-in-button').addEventListener('click', () => {
     document.querySelector('#login').style.display = 'block';
@@ -26,6 +40,7 @@ document.querySelector('#log-in-button').addEventListener('click', () => {
 });
 
 document.querySelector('#cancel-login').addEventListener('click', () => {
+    clearAlertIfExists();
     document.querySelector('#login').style.display = 'none';
 });
 
@@ -33,7 +48,8 @@ document.querySelector('#login-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const loginEmail = document.querySelector('#login-email').value;
     const loginPass = document.querySelector('#login-pass').value;
-    if (document.querySelector('.login-alert') !== null) document.querySelector('.login-alert').remove();
+
+    clearAlertIfExists();
 
     fetch('/users/login', {
         method: 'POST',
@@ -54,7 +70,7 @@ document.querySelector('#login-form').addEventListener('submit', (e) => {
                 const loginForm = document.querySelector('#login-form');
                 const loginAlert = document.createElement('p');
                 loginAlert.className = 'login-alert';
-                loginAlert.innerHTML = 'Sorry, that email or password is not correct. Please email us if you have forgotten your password.'
+                loginAlert.innerHTML = 'Sorry, that email or password is not correct.'
                 loginForm.appendChild(loginAlert);
             }
         });
@@ -76,7 +92,8 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
     const signUpEmail = document.querySelector('#sign-up-email').value;
     const signUpPass = document.querySelector('#sign-up-pass').value;
     const confirmPass = document.querySelector('#confirm-pass').value;
-    if (document.querySelector('.login-alert') !== null) document.querySelector('.login-alert').remove();
+
+    clearAlertIfExists();
 
     if (signUpPass !== confirmPass) {
         const signUpForm = document.querySelector('#sign-up-form');
@@ -105,6 +122,7 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
                 } else {
                     const signUpForm = document.querySelector('#sign-up-form');
                     const signUpAlert = document.createElement('p');
+                    signUpAlert.className = 'login-alert';
                     signUpAlert.innerHTML = 'There is already an account associated with this email.'
                     signUpForm.appendChild(signUpAlert);
                 }
@@ -125,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.username != null) loggedInDisplay(data);
+            if (data.username != undefined || null) loggedInDisplay(data);
         });
 });
 
@@ -156,8 +174,9 @@ document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
     })
         .then(response => response.json())
         .then(data => {
-            if (document.querySelector('.reset-msg') !== null) document.querySelector('.reset-msg').remove();
 
+            clearMessageIfExists();
+            
             if (data.success !== false) {
                 const message = document.querySelector('#forgot-pass-msg');
                 const successMsg = document.createElement('p');

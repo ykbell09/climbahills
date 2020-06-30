@@ -21,7 +21,7 @@ describe('user functions', () => {
 
     describe('addNewUser', () => {
 
-        it('add new user to database', async () => {
+        it('adds new user to database', async () => {
 
             const result = await addNewUser(username, email, password);
             expect(result.username).to.equal(username);

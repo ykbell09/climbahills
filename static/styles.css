@@ -176,20 +176,23 @@ h1::after {
 }
 
 .login-alert,
+.login-alert-link,
 #reset-msg-link {
   cursor: pointer;
 }
 
 .login-alert,
+.login-alert-link,
 .form-msg {
   font-size: .8em;
+  max-width: 170px;
 }
 
 .login-alert, 
+.login-alert-link,
 .form-msg,
 .reset-msg,
 #reset-msg-link {
-  max-width: 170px;
   color: var(--dkorange);
 }
 

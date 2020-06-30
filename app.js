@@ -26,7 +26,7 @@ app.post('/users/login', async (req, res) => {
         const user = req.body;
         const userObject = await checkPassHash(user.email, user.password);
         if (userObject == null) {
-            res.send({ user: null });
+            res.send({ username: null });
         } else {
             req.session.user = userObject;
             res.send(userObject);
@@ -38,7 +38,7 @@ app.post('/users/sign-up', async (req, res) => {
     const newUser = req.body;
     const userObject = await addNewUser(newUser.username, newUser.email, newUser.password);
     if (userObject == null) {
-        res.send({ user: null });
+        res.send({ username: null });
     } else {
         req.session.user = userObject;
         res.send(userObject);
@@ -77,7 +77,9 @@ app.post('/users/reset-pass', async (req, res) => {
 });
 
 app.post('/users/reload', async (req, res) => {  
-    res.send(req.session.user);
+    if (req.session.user != undefined) {
+        res.send({ username: req.session.user.username, setter: req.session.user.setter });
+    }
 });
 
 app.post('/users/logout', function (req, res) {
@@ -90,7 +92,7 @@ const staticRoute = express.static('static');
 app.use('/', staticRoute);
 app.use('/static', staticRoute);
 
-// GLOBAL ERROR HANDLER
+// GLOBAL ERROR HANDLER - TO BE REVIEWED
 const { NODE_ENV } = process.env;
 // COMMENT OUT IF STATEMENT FOR TESTING
 if (NODE_ENV !== 'development' && NODE_ENV !== 'test') {
