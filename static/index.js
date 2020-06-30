@@ -82,7 +82,7 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
         const signUpForm = document.querySelector('#sign-up-form');
         const signUpAlert = document.createElement('p');
         signUpAlert.className = 'login-alert';
-        signUpAlert.innerHTML = 'Please check your password and try again.';
+        signUpAlert.innerHTML = 'Please check your passwords and try again.';
         signUpForm.appendChild(signUpAlert);
     } else {
         fetch('/users/sign-up', {
@@ -110,7 +110,7 @@ document.querySelector('#sign-up-form').addEventListener('submit', (e) => {
                 }
             });
     }
-})
+});
 
 document.querySelector('#log-out-button').addEventListener('click', () => {
     fetch('/users/logout', {
@@ -139,7 +139,7 @@ document.querySelector('#cancel-forgot-pass').addEventListener('click', () => {
     if (document.querySelector('.reset-msg') !== null) document.querySelector('.reset-msg').remove();
 });
 
-// WIP
+// send forgot password email
 document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
     e.preventDefault();
     const userEmail = document.querySelector('#forgot-pass-email').value;
@@ -179,12 +179,6 @@ document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
                     document.querySelector('#forgot-pass').style.display = 'none';
                     document.querySelector('#sign-up').style.display = 'block';
                 });
-
-
-
-
             }
         });
 });
-
-

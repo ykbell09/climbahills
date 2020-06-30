@@ -120,22 +120,6 @@ export const compareKeys = (key, userKey) => {
 };
 
 /**
- * Compares user key and expiration date to confirm if user can reset password. DO I EVEN NEED TO DO THIS, OR CAN I CALL THESE FUNCTIONS IN MY API CALL?
- * @param {string} email 
- * @param {string} key 
- * @returns {boolean} true - okay to reset password
- */
-export const checkUserCredentials = async (email, key) => {
-    const userInfo = await getUserKeyAndExpiration(email);
-    if (userInfo == undefined) return false;
-    const expired = compareDates(userInfo.expiration);
-    if (expired == true) return false;
-    const keysMatch = compareKeys(key, userInfo.key);
-    if (keysMatch == false) return false;
-    return true;
-};
-
-/**
  * Updates the user password in the users table. 
  * @param {string} id 
  * @param {string} password 
@@ -150,13 +134,16 @@ export const updateUserPassword = async (id, password) => {
     return userName;
 };
 
-// WIP -- deletes a record in the reset_password table, to be used to delete the record after the password has been changed.
+/**
+ * Deletes a record in the reset_password table, to be used to delete the record after the password has been changed.
+ * @param {integer} id 
+ * @returns {integer} number of records deleted
+ */
 export const deleteResetRecord = async (id) => {
     const result = await knex('reset_password')
         .where({ user_id: id })
         .del();
-    console.log('this is the function result: ' + result);
     return result;
-}
+};
 
 
