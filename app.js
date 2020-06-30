@@ -49,28 +49,35 @@ app.post('/users/forgot-pass', async (req, res) => {
     const user = req.body;
     const emailResult = await sendPassResetEmail(user.email);
     if (emailResult == null) {
-        res.send({ emailResult: null });
+        res.send({ success: false });
     } else {
-        res.send(emailResult);
+        res.send({ success: true });
     }
 });
 
 app.post('/users/reset-pass', async (req, res) => {
     const resetInfo = req.body;
     const userInfo = await getUserKeyAndExpiration(resetInfo.email);
+
+    if (userInfo == undefined) {
+        res.send({ success: false });
+        return;
+    }
+
     const expired = compareDates(userInfo.expiration);
     const keysMatch = compareKeys(resetInfo.key, userInfo.key);
-    if (userInfo == undefined) return false;
-    if (expired == true) return false;
-    if (keysMatch == false) return false;
 
-    const userName = await updateUserPassword(userInfo.user_id, resetInfo.password);
-    await deleteResetRecord(userInfo.user_id);
-    res.send({userName});
+    if (userInfo == null || expired == true || keysMatch == false) {
+        res.send({ success: false })
+    } else {
+        const userName = await updateUserPassword(userInfo.user_id, resetInfo.password);
+        await deleteResetRecord(userInfo.user_id);
+        res.send({ success: true, user: userName });
+    }
 });
 
 app.post('/users/reload', async (req, res) => {  
-    res.send(req.session);
+    res.send(req.session.user);
 });
 
 app.post('/users/logout', function (req, res) {

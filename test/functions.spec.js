@@ -162,7 +162,6 @@ describe('user functions', () => {
 
             const user = await getUserIdByEmail(email);
             const result = await deleteResetRecord(user.id);
-            console.log('this is the test result: ' + result);
             expect(result).to.equal(1);
 
         });

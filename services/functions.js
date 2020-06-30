@@ -139,9 +139,9 @@ export const updateUserPassword = async (id, password) => {
  * @param {integer} id 
  * @returns {integer} number of records deleted
  */
-export const deleteResetRecord = async (id) => {
+export const deleteResetRecord = async (user_id) => {
     const result = await knex('reset_password')
-        .where({ user_id: id })
+        .where({ user_id })
         .del();
     return result;
 };

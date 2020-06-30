@@ -158,7 +158,7 @@ document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
         .then(data => {
             if (document.querySelector('.reset-msg') !== null) document.querySelector('.reset-msg').remove();
 
-            if (data.emailResult !== null) {
+            if (data.success !== false) {
                 const message = document.querySelector('#forgot-pass-msg');
                 const successMsg = document.createElement('p');
                 successMsg.innerHTML = 'success! check your email';
