@@ -183,6 +183,7 @@ document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
                 successMsg.innerHTML = 'success! check your email';
                 successMsg.className = 'reset-msg';
                 message.appendChild(successMsg);
+                document.querySelector('#send-email-submit').disabled = true;
             } else {
                 const message = document.querySelector('#forgot-pass-msg');
                 const failedMsg = document.createElement('p');

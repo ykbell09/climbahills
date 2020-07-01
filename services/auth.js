@@ -41,8 +41,13 @@ const generateExpiration = () => {
  * @param {string} email 
  */
 export const resetPasswordEmail = async (username, user_id, email) => {
+    await knex('reset_password')
+        .where({ user_id })
+        .del();
+
     const key = generateRandomKey();
     const expiration = generateExpiration();
+       
     await knex('reset_password')
         .insert({ user_id, key, expiration });
     
