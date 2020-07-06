@@ -3,6 +3,7 @@
  * @param {object} user 
  */
 const loggedInDisplay = user => {
+    console.log(user);
     const topNavUser = document.querySelector('#top-nav-user');
     const userWelcome = document.createElement('p');
     // userWelcome.className = '';
@@ -14,8 +15,10 @@ const loggedInDisplay = user => {
     document.querySelector('#log-out-button').style.display = 'inline';
     document.querySelector('#login').style.display = 'none';
     document.querySelector('#sign-up').style.display = 'none';
+    document.querySelector('#add-problem').style.display = 'none';
 
-    if (user.setter == true) document.querySelector('#add-problem').style.display = 'block';
+    if (user.setter == true) document.querySelector('#add-problem-button').style.display = 'block';
+    if (user.admin == true) document.querySelector('#admin-button').style.display = 'inline';
 
 };
 
@@ -143,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             if (data.username != undefined || null) loggedInDisplay(data);
         });
 });
@@ -201,4 +205,24 @@ document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
                 });
             }
         });
+});
+
+// admin events
+
+document.querySelector('#admin-button').addEventListener('click', () => {
+    document.querySelector('#admin').style.display = 'block';
+})
+
+document.querySelector('#cancel-admin').addEventListener('click', () => {
+    document.querySelector('#admin').style.display = 'none';
+});
+
+// problem functions & events
+
+document.querySelector('#add-problem-button').addEventListener('click', () => {
+    document.querySelector('#add-problem').style.display = 'block';
+});
+
+document.querySelector('#cancel-add-problem').addEventListener('click', () => {
+    document.querySelector('#add-problem').style.display = 'none';
 });

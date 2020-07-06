@@ -19,6 +19,7 @@
         </div>
         <div id="top-nav-user">
             <p class="sign-up-link" id="sign-up-link">sign up</p>
+            <button class="nav-button" id="admin-button">admin</button>
             <button class="nav-button" id="log-in-button">log in</button>
             <button class="nav-button" id="log-out-button">log out</button>
         </div>
@@ -77,6 +78,74 @@
         </form>
     </div>
 
+    <!-- ADMIN FORM -->
+    <div class="form-popup" id="admin">
+        <form class="form-container" id="admin-form">
+            <h3>update user</h3>
+            <label for="email">user email</label>
+            <input type="email" placeholder="email address" name="email" id="admin-email" required />
+
+            <span class="radio-input">
+                <span class="radio-input">
+                    <label for="setter-true">update to setter:</label>
+                    <input type="radio" id="setter-true" name="setter-status" value="true">
+                </span>
+                <span class="radio-input">
+                    <label for="setter-false">remove setter status:</label>
+                    <input type="radio" id="setter-false" name="setter-status" value="false">
+                </span>
+            </span>
+
+            <span class="radio-input">
+                <span class="radio-input">
+                    <label for="admin-true">update to admin:</label>
+                    <input type="radio" id="admin-true" name="admin-status" value="true">
+                </span>
+                <span class="radio-input">
+                    <label for="admin-false">remove admin status:</label>
+                    <input type="radio" id="admin-false" name="admin-status" value="false">
+                </span>
+            </span>
+
+            <button type="button" class="danger-button" id="admin-delete-user">delete user</button>
+            <button type="submit" id="send-email-submit">send email</button>
+            <button type="reset" class="cancel" id="cancel-admin">cancel</button>
+
+        </form>
+    </div>
+
+    <!-- ADD PROBLEM -->
+    <div class="form-popup" id="add-problem">
+        <form class="form-container" id="add-problem-form">
+            <h3>add a problem</h3>
+            <label for="problem-name">problem name</label>
+            <input type="text" placeholder="problem name" name="problem-name" id="new-problem-name" required />
+            <label for="first-ascent">FA</label>
+            <input type="text" placeholder="first acentionist" name="first-asecent" id="new-first-ascent" required />
+            <label for="setter-name">setter name</label>
+            <input type="text" placeholder="setter name" name="setter-name" id="new-setter-name" required />
+
+            <!-- WIP -->
+            <span class="radio-input">
+                <span class="radio-input">
+                    <label id="grade-label" for="v-grade">v grade </label>
+                    <input type="number" name="v-grade" id="new-v-grade" required />
+                </span>
+                <span class="radio-input">
+                    <label for="v-grade-plus">plus</label>
+                    <input type="radio" id="v-grade-plus" name="v-grade" required />
+                </span>
+                <span class="radio-input">
+                    <label for="v-grade-minus">minus</label>
+                    <input type="radio" id="v-grade-minus" name="v-grade" required />
+                </span>
+            </span>
+
+            <button type="submit">submit</button>
+            <button type="reset" class="cancel" id="cancel-add-problem">cancel</button>
+        </form>
+    </div>
+
     <div class="grid-container">
 
         <div id="about" class="grid-item">
@@ -90,7 +159,7 @@
         </div>
 
         <div class="grid-item" id="problems">
-            <button id="add-problem">add a problem</button>
+            <button id="add-problem-button">add a problem</button>
         </div>
 
     </div> <!-- END GRID CONTAINER -->

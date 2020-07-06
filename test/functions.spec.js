@@ -5,7 +5,7 @@ import { addNewUser, checkPassHash, sendPassResetEmail, getUserIdByEmail, getUse
 describe('user functions', () => {
 
     const username = 'testUser';
-    const email = 'climbahills@gmail.com';
+    const email = 'twentymilehike@gmail.com';
     const password = 'test';
     const badEmail = 'badEmail@email.com';
 

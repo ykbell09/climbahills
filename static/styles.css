@@ -85,6 +85,17 @@ a:active {
   background-color: var(--ltorange);
 }
 
+.danger-button {
+  background-color: red;
+}
+
+.danger-button:active,
+.danger-button:hover {
+  background-color: rgb(206, 100, 67);
+}
+
+
+
 /* HERO */
 .content {
   width: 100vw;
@@ -158,11 +169,16 @@ h1::after {
   z-index: 9;
 }
 
-#reset-pass {
-  display: block;
+#reset-pass,
+#add-problem,
+#admin {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+#reset-pass {
+  display: block;
 }
 
 .form-container * {
@@ -200,6 +216,22 @@ h1::after {
 #reset-msg-link {
   font-weight: bold;
 }
+#grade-label {
+  margin-right: 10px;
+}
+
+.radio-input {
+  display: flex;
+  justify-content: space-between;
+  align-items:flex-end;
+  align-content: flex-start;
+    text-align: right;
+}
+
+
+/* #v-grade-input div {
+  border: thin purple solid;
+} */
 
 /* NAVIGATION */
 .nav {
@@ -220,7 +252,8 @@ h1::after {
   padding: 15px;
 }
 
-#log-out-button {
+#log-out-button,
+#admin-button {
   display: none;
 }
 
@@ -283,9 +316,4 @@ h1::after {
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 300px;
-}
-
-/* PROBLEMS */
-#add-problem {
-  display: none;
 }

@@ -78,7 +78,7 @@ app.post('/users/reset-pass', async (req, res) => {
 
 app.post('/users/reload', async (req, res) => {  
     if (req.session.user != undefined) {
-        res.send({ username: req.session.user.username, setter: req.session.user.setter });
+        res.send({ username: req.session.user.username, setter: req.session.user.setter, admin: req.session.user.admin });
     }
 });
 
