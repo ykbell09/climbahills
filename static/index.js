@@ -211,16 +211,45 @@ document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
 
 document.querySelector('#admin-button').addEventListener('click', () => {
     document.querySelector('#admin').style.display = 'block';
+    document.querySelector('#add-problem').style.display = 'none';
 })
+
+document.querySelector('#cancel-admin').addEventListener('click', () => {
+    document.querySelector('#admin').style.display = 'none';
+    document.querySelector('#are-you-sure').style.display = 'none';
+});
 
 document.querySelector('#cancel-admin').addEventListener('click', () => {
     document.querySelector('#admin').style.display = 'none';
 });
 
+document.querySelector('#cancel-admin').addEventListener('click', () => {
+    document.querySelector('#admin').style.display = 'none';
+    document.querySelector('#are-you-sure').style.display = 'none';
+});
+document.querySelector('#cancel-admin').addEventListener('click', () => {
+    document.querySelector('#admin').style.display = 'none';
+    document.querySelector('#are-you-sure').style.display = 'none';
+});
+
+document.querySelector('#cancel-delete').addEventListener('click', () => {
+    document.querySelector('#are-you-sure').style.display = 'none';
+});
+
+document.querySelector('#admin-delete-user').addEventListener('click', () => {
+    document.querySelector('#are-you-sure').style.display = 'block';
+    document.querySelector('#admin').style.display = 'none';
+    const userEmail = document.querySelector('#admin-email').value;
+    document.querySelector('#user-delete-warning').innerHTML = userEmail;
+});
+
+
+
 // problem functions & events
 
 document.querySelector('#add-problem-button').addEventListener('click', () => {
     document.querySelector('#add-problem').style.display = 'block';
+    document.querySelector('#admin').style.display = 'none';
 });
 
 document.querySelector('#cancel-add-problem').addEventListener('click', () => {

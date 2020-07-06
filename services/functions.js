@@ -141,9 +141,42 @@ export const updateUserPassword = async (id, password) => {
  */
 export const deleteResetRecord = async (user_id) => {
     const result = await knex('reset_password')
-        .where({ user_id })
-        .del();
+    .where({ user_id })
+    .del();
     return result;
 };
 
+/**
+ * Updates the admin or setter status of a user when provided with an email address. 
+ * @param {string} email 
+ * @param {boolean} setter 
+ * @param {boolean} admin 
+ * @returns {boolean} true if updated, false if error
+ */
+export const updateUserStatus = async (email, setter, admin) => {
+    const result = await knex('users')
+    .where({ email })
+    .update({ setter, admin })
+    // .returning( 'email', 'setter', 'admin' )
+    .catch(function () {
+        return false;
+    });
+    if (result === 0) return false;
+    return true;
+};
 
+/**
+ * Deletes a user record when provided with an email address.
+ * @param {string} email 
+ * @returns {boolean} true if updated, false if error
+ */
+export const deleteUserRecord = async (email) => {
+    const result = await knex('users')
+    .where({ email })
+    .del()
+    .catch(function () {
+        return false;
+    });
+    if (result === 0) return false;
+    return true;
+};

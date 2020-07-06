@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import knex from '../database';
-import { addNewUser, checkPassHash, sendPassResetEmail, getUserIdByEmail, getUserKeyAndExpiration, compareDates, compareKeys, updateUserPassword, deleteResetRecord } from '../services/functions';
+import { addNewUser, checkPassHash, sendPassResetEmail, getUserIdByEmail, getUserKeyAndExpiration, compareDates, compareKeys, updateUserPassword, deleteResetRecord, updateUserStatus, deleteUserRecord } from '../services/functions';
 
 describe('user functions', () => {
 
@@ -166,6 +166,40 @@ describe('user functions', () => {
 
         });
         
+    });
+    
+    describe('updateUserStatus', async () => {
+
+        it('updates user setter or admin status', async () => {
+
+            const result = await updateUserStatus(email, true, true);
+            expect(result).to.be.true;
+        });
+        
+        it('fails to update with incorrect email', async () => {
+
+            const result = await updateUserStatus(badEmail, true, false);
+            expect(result).to.be.false;
+        });
+    
+    });
+
+    describe('deleteUserRecord', async () => {
+
+        it('deletes a user record', async () => {
+
+            const result = await deleteUserRecord(email);
+            expect(result).to.be.true;
+
+        });
+        
+        it('returns false with a bad email address', async () => {
+
+            const result = await deleteUserRecord(badEmail);
+            expect(result).to.be.false;
+
+        });
+
     });
 
 

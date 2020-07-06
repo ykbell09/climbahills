@@ -169,9 +169,7 @@ h1::after {
   z-index: 9;
 }
 
-#reset-pass,
-#add-problem,
-#admin {
+.center-form {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -226,6 +224,11 @@ h1::after {
   align-items:flex-end;
   align-content: flex-start;
     text-align: right;
+}
+
+#user-delete-warning {
+  color: black;
+  font-size: 2em;
 }
 
 
