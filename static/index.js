@@ -178,7 +178,7 @@ document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
         .then(data => {
 
             clearMessageIfExists();
-            
+
             if (data.success !== false) {
                 const message = document.querySelector('#forgot-pass-msg');
                 const successMsg = document.createElement('p');
@@ -196,7 +196,7 @@ document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
                 signUpLink.innerHTML = 'sign up!';
                 signUpLink.id = 'reset-msg-link';
                 failedMsg.appendChild(signUpLink);
-                
+
                 document.querySelector('#reset-msg-link').addEventListener('click', () => {
                     document.querySelector('#forgot-pass').style.display = 'none';
                     document.querySelector('#sign-up').style.display = 'block';
@@ -210,40 +210,57 @@ document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
 document.querySelector('#admin-button').addEventListener('click', () => {
     document.querySelector('#admin').style.display = 'block';
     document.querySelector('#add-problem').style.display = 'none';
-})
-
-document.querySelector('#cancel-delete').addEventListener('click', () => {
-    document.querySelector('#admin').style.display = 'none';
-    document.querySelector('#are-you-sure').style.display = 'none';
-});
-
-document.querySelector('#cancel-admin').addEventListener('click', () => {
-    document.querySelector('#admin').style.display = 'none';
-});
-
-document.querySelector('#cancel-admin').addEventListener('click', () => {
-    document.querySelector('#admin').style.display = 'none';
-    document.querySelector('#are-you-sure').style.display = 'none';
-});
-document.querySelector('#cancel-admin').addEventListener('click', () => {
-    document.querySelector('#admin').style.display = 'none';
     document.querySelector('#are-you-sure').style.display = 'none';
 });
 
 document.querySelector('#cancel-delete').addEventListener('click', () => {
+    document.querySelector('#admin').style.display = 'none';
     document.querySelector('#are-you-sure').style.display = 'none';
+});
+
+document.querySelector('#cancel-admin').addEventListener('click', () => {
+    document.querySelector('#admin').style.display = 'none';
+});
+
+document.querySelector('#cancel-admin').addEventListener('click', () => {
+    document.querySelector('#admin').style.display = 'none';
+    document.querySelector('#are-you-sure').style.display = 'none';
+});
+document.querySelector('#cancel-admin').addEventListener('click', () => {
+    document.querySelector('#admin').style.display = 'none';
+    document.querySelector('#are-you-sure').style.display = 'none';
+});
+
+document.querySelector('#cancel-delete').addEventListener('click', () => {
+    document.querySelector('#are-you-sure').style.display = 'none';
+    document.querySelector('#admin').style.display = 'block';
+    document.querySelector('#are-you-sure-submit').style.display = 'block';
+    clearMessageIfExists();
+
 });
 
 // WIP
 document.querySelector('#admin-delete-user').addEventListener('click', () => {
     const userEmail = document.querySelector('#admin-email').value;
-    if (userEmail != null) {
+    if (userEmail == '') {
+        clearMessageIfExists();
+        const adminForm = document.querySelector('#admin');
+        const updateAlert = document.createElement('p');
+        updateAlert.className = 'reset-msg';
+        updateAlert.innerHTML = 'Please enter a valid email.'
+        adminForm.appendChild(updateAlert);
+    } else {
+
+        clearMessageIfExists();
+
         document.querySelector('#are-you-sure').style.display = 'block';
         document.querySelector('#admin').style.display = 'none';
         document.querySelector('#user-delete-warning').innerHTML = userEmail;
-        
-        document.querySelector('#are-you-sure-submit').addEventListener('click', () => {
-        
+
+        const areYouSureSubmit = document.querySelector('#are-you-sure-submit');
+
+        areYouSureSubmit.addEventListener('click', (e) => {
+            e.preventDefault();
             // call api, check record exists, delete & send {success: true}, display success message
             fetch('/users/delete', {
                 method: 'POST',
@@ -257,16 +274,40 @@ document.querySelector('#admin-delete-user').addEventListener('click', () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                
-                    console.log(data);
-                    // need to create confirmation message
+
+                    areYouSureSubmit.style.display = 'none';
+
+                    if (data.success == false) {
+                        clearMessageIfExists();
+                        
+                        const adminForm = document.querySelector('#are-you-sure');
+                        const updateAlert = document.createElement('p');
+                        updateAlert.className = 'reset-msg';
+                        updateAlert.innerHTML = 'There is no account associated with this email.'
+                        adminForm.appendChild(updateAlert);
+                    } 
+                    
+                    if (data.success == true) {
+                        clearMessageIfExists();
+                        
+                        const adminForm = document.querySelector('#are-you-sure');
+                        const updateAlert = document.createElement('p');
+                        updateAlert.className = 'reset-msg';
+                        updateAlert.innerHTML = 'Success! This account has been permanently deleted.'
+                        adminForm.appendChild(updateAlert);
+
+                        // update cancel button to 'close'
+                    } 
+                    
+
+
                 });
         });
     }
 });
 
-    
-    // problem functions & events
+
+// problem functions & events
 
 document.querySelector('#add-problem-button').addEventListener('click', () => {
     document.querySelector('#add-problem').style.display = 'block';

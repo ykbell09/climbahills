@@ -78,8 +78,8 @@ app.post('/users/reset-pass', async (req, res) => {
 
 app.post('/users/delete', async (req, res) => {
     const userEmail = req.body.userEmail;
-    const success = await deleteUserRecord(userEmail);
-    res.send(success);
+    const response = await deleteUserRecord(userEmail);
+    res.send({success: response});
 })
 
 app.post('/users/reload', async (req, res) => {  
