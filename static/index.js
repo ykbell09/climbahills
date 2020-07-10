@@ -3,7 +3,6 @@
  * @param {object} user 
  */
 const loggedInDisplay = user => {
-    console.log(user);
     const topNavUser = document.querySelector('#top-nav-user');
     const userWelcome = document.createElement('p');
     // userWelcome.className = '';
@@ -146,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data.username != undefined || null) loggedInDisplay(data);
         });
 });
@@ -214,7 +212,7 @@ document.querySelector('#admin-button').addEventListener('click', () => {
     document.querySelector('#add-problem').style.display = 'none';
 })
 
-document.querySelector('#cancel-admin').addEventListener('click', () => {
+document.querySelector('#cancel-delete').addEventListener('click', () => {
     document.querySelector('#admin').style.display = 'none';
     document.querySelector('#are-you-sure').style.display = 'none';
 });
@@ -236,16 +234,39 @@ document.querySelector('#cancel-delete').addEventListener('click', () => {
     document.querySelector('#are-you-sure').style.display = 'none';
 });
 
+// WIP
 document.querySelector('#admin-delete-user').addEventListener('click', () => {
-    document.querySelector('#are-you-sure').style.display = 'block';
-    document.querySelector('#admin').style.display = 'none';
     const userEmail = document.querySelector('#admin-email').value;
-    document.querySelector('#user-delete-warning').innerHTML = userEmail;
+    if (userEmail != null) {
+        document.querySelector('#are-you-sure').style.display = 'block';
+        document.querySelector('#admin').style.display = 'none';
+        document.querySelector('#user-delete-warning').innerHTML = userEmail;
+        
+        document.querySelector('#are-you-sure-submit').addEventListener('click', () => {
+        
+            // call api, check record exists, delete & send {success: true}, display success message
+            fetch('/users/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/jason'
+                },
+                body: JSON.stringify({
+                    userEmail: userEmail
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                
+                    console.log(data);
+                    // need to create confirmation message
+                });
+        });
+    }
 });
 
-
-
-// problem functions & events
+    
+    // problem functions & events
 
 document.querySelector('#add-problem-button').addEventListener('click', () => {
     document.querySelector('#add-problem').style.display = 'block';
