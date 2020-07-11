@@ -85,25 +85,25 @@
             <label for="email">user email</label>
             <input type="email" placeholder="email address" name="email" id="admin-email" required />
 
-            <span class="radio-input">
-                <span class="radio-input">
+            <span class="sub-input">
+                <span class="sub-input">
                     <label for="setter-true">update to setter:</label>
                     <input type="radio" id="setter-true" name="setter-status" value="true">
                 </span>
-                <span class="radio-input">
+                <span class="sub-input">
                     <label for="setter-false">remove setter status:</label>
                     <input type="radio" id="setter-false" name="setter-status" value="false">
                 </span>
             </span>
 
-            <span class="radio-input">
-                <span class="radio-input">
+            <span class="sub-input">
+                <span class="sub-input">
                     <label for="admin-true">update to admin:</label>
-                    <input type="radio" id="admin-true" name="admin-status" value="true">
+                    <input type="radio" id="admin-true" name="admin-status" value="true" />
                 </span>
-                <span class="radio-input">
+                <span class="sub-input">
                     <label for="admin-false">remove admin status:</label>
-                    <input type="radio" id="admin-false" name="admin-status" value="false">
+                    <input type="radio" id="admin-false" name="admin-status" value="false" />
                 </span>
             </span>
 
@@ -117,7 +117,8 @@
     <div class="form-popup center-form" id="are-you-sure">
         <form class="form-container" id="are-you-sure-form">
             <h3>delete user</h3>
-            <p class="delete-msg" id="are-you-sure-msg">Please confirm that you want to delete this user record. This action cannot be undone!</p>
+            <p class="delete-msg" id="are-you-sure-msg">Please confirm that you want to delete this user record. This
+                action cannot be undone!</p>
             <p id="user-delete-warning"></p>
             <button type="submit" id="are-you-sure-submit" class="danger-button">confirm</button>
             <button type="reset" class="cancel" id="cancel-delete">cancel</button>
@@ -129,28 +130,51 @@
     <div class="form-popup center-form" id="add-problem">
         <form class="form-container" id="add-problem-form">
             <h3>add a problem</h3>
+
             <label for="problem-name">problem name</label>
             <input type="text" placeholder="problem name" name="problem-name" id="new-problem-name" required />
+
             <label for="first-ascent">FA</label>
-            <input type="text" placeholder="first acentionist" name="first-asecent" id="new-first-ascent" required />
+            <input type="text" placeholder="first acentionist" name="first-ascent" id="new-first-ascent" />
+
             <label for="setter-name">setter name</label>
             <input type="text" placeholder="setter name" name="setter-name" id="new-setter-name" required />
 
-            <!-- WIP -->
-            <span class="radio-input">
-                <span class="radio-input">
-                    <label id="grade-label" for="v-grade">v grade </label>
-                    <input type="number" name="v-grade" id="new-v-grade" required />
+            <span class="sub-input">
+                <span class="sub-input">
+                    <label for="new-v-grade">v grade </label>
+                    <input type="number" name="new-v-grade" id="new-v-grade" />
                 </span>
-                <span class="radio-input">
+
+                <span class="sub-input">
                     <label for="v-grade-plus">plus</label>
-                    <input type="radio" id="v-grade-plus" name="v-grade" required />
+                    <input type="checkbox" id="v-grade-plus" name="v-grade" />
                 </span>
-                <span class="radio-input">
+
+                <span class="sub-input">
                     <label for="v-grade-minus">minus</label>
-                    <input type="radio" id="v-grade-minus" name="v-grade" required />
+                    <input type="checkbox" id="v-grade-minus" name="v-grade" />
                 </span>
             </span>
+
+            <label id="date-set" for="date-set">date set</label>
+            <input type="date" name="date-set" id="date-set" required />
+
+            <label for="date-removed">date removed</label>
+            <input type="date" id="date-removed" name="date-removed" />          
+
+            <label for="tape-color">tape color</label>
+            <select name="tape-color" id="tape-color">
+                <option value="none">no tape</option>
+                <option value="red">red</option>
+                <option value="orange">orange</option>
+                <option value="yellow">yellow</option>
+                <option value="green">green</option>
+                <option value="blue">blue</option>
+            </select>
+
+            <label for="problem-notes">notes</label>
+            <textarea id="problem-notes" name="problem-notes" rows="4"></textarea>          
 
             <button type="submit">add problem</button>
             <button type="reset" class="cancel" id="cancel-add-problem">cancel</button>

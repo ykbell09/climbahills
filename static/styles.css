@@ -4,6 +4,7 @@
   --dkorange: #ff7b00;
   --orange: #f7a900;
   --ltorange: #f0c059;
+  --vltorange: #fff0d1;
   --black: rgb(48, 46, 46);
 }
 
@@ -176,6 +177,10 @@ h1::after {
   transform: translate(-50%, -50%);
 }
 
+.center-form :required {
+  background: var(--vltorange);
+}
+
 #reset-pass {
   display: block;
 }
@@ -220,7 +225,7 @@ h1::after {
   margin-right: 10px;
 }
 
-.radio-input {
+.sub-input {
   display: flex;
   justify-content: space-between;
   align-items:flex-end;
@@ -232,11 +237,6 @@ h1::after {
   color: black;
   font-size: 2em;
 }
-
-
-/* #v-grade-input div {
-  border: thin purple solid;
-} */
 
 /* NAVIGATION */
 .nav {
