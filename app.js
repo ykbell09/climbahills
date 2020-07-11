@@ -3,7 +3,7 @@ import _ from './env';
 import knex from './database';
 import session from 'express-session';
 import ConnectSessionKnex from 'connect-session-knex';
-import { addNewUser, checkPassHash, sendPassResetEmail, getUserKeyAndExpiration, compareDates, compareKeys, updateUserPassword, deleteResetRecord, deleteUserRecord } from './services/functions.js';
+import { addNewUser, checkPassHash, sendPassResetEmail, getUserKeyAndExpiration, compareDates, compareKeys, updateUserPassword, deleteResetRecord, deleteUserRecord, updateUserStatus } from './services/functions.js';
 
 const app = express();
 app.use(express.json());
@@ -78,9 +78,15 @@ app.post('/users/reset-pass', async (req, res) => {
 
 app.post('/users/delete', async (req, res) => {
     const userEmail = req.body.userEmail;
-    const response = await deleteUserRecord(userEmail);
-    res.send({success: response});
-})
+    const result = await deleteUserRecord(userEmail);
+    res.send({ success: result });
+});
+
+app.post('/users/update', async (req, res) => {
+    const user = req.body;
+    const result = await updateUserStatus(user.email, user.setter, user.admin);
+    res.send({ success: result });
+});
 
 app.post('/users/reload', async (req, res) => {  
     if (req.session.user != undefined) {

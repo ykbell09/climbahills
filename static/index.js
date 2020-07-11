@@ -220,15 +220,8 @@ document.querySelector('#cancel-delete').addEventListener('click', () => {
 
 document.querySelector('#cancel-admin').addEventListener('click', () => {
     document.querySelector('#admin').style.display = 'none';
-});
-
-document.querySelector('#cancel-admin').addEventListener('click', () => {
-    document.querySelector('#admin').style.display = 'none';
     document.querySelector('#are-you-sure').style.display = 'none';
-});
-document.querySelector('#cancel-admin').addEventListener('click', () => {
-    document.querySelector('#admin').style.display = 'none';
-    document.querySelector('#are-you-sure').style.display = 'none';
+    clearMessageIfExists();
 });
 
 document.querySelector('#cancel-delete').addEventListener('click', () => {
@@ -239,7 +232,7 @@ document.querySelector('#cancel-delete').addEventListener('click', () => {
 
 });
 
-// WIP
+// admin delete user -- needs work
 document.querySelector('#admin-delete-user').addEventListener('click', () => {
     const userEmail = document.querySelector('#admin-email').value;
     if (userEmail == '') {
@@ -274,7 +267,6 @@ document.querySelector('#admin-delete-user').addEventListener('click', () => {
             })
                 .then(response => response.json())
                 .then(data => {
-
                     areYouSureSubmit.style.display = 'none';
 
                     if (data.success == false) {
@@ -305,6 +297,79 @@ document.querySelector('#admin-delete-user').addEventListener('click', () => {
         });
     }
 });
+
+// admin update user -- needs work
+document.querySelector('#admin-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const userEmail = document.querySelector('#admin-email').value;
+    const setterStatusTrue = document.querySelector('#setter-true').checked;
+    const setterStatusFalse = document.querySelector('#setter-false').checked;
+    const adminStatusTrue = document.querySelector('#admin-true').checked;
+    const adminStatusFalse = document.querySelector('#admin-false').checked;
+
+    const statusUpdateTest = (x, y) => {
+        if (x === true) {
+            return true;
+        } else if (y === true) {
+            return false;
+        } else {
+            return null
+        }
+    };
+    
+    const setterStatus = statusUpdateTest(setterStatusTrue, setterStatusFalse);
+    const adminStatus = statusUpdateTest(adminStatusTrue, adminStatusFalse);
+
+    fetch('/users/update', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            email: userEmail,
+            setter: setterStatus,
+            admin: adminStatus
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+        
+            if (data.success == true) {
+                clearMessageIfExists();
+
+                const adminForm = document.querySelector('#admin-form');
+                const updateAlert = document.createElement('p');
+                updateAlert.className = 'reset-msg';
+                updateAlert.innerHTML = 'Success! The user has been updated.'
+                adminForm.appendChild(updateAlert);
+            }
+
+            if (data.success == false) {
+                clearMessageIfExists();
+
+                const adminForm = document.querySelector('#admin-form');
+                const updateAlert = document.createElement('p');
+                updateAlert.className = 'reset-msg';
+                updateAlert.innerHTML = 'There was a problem updating this account or no account exists.'
+                adminForm.appendChild(updateAlert);
+            }
+
+
+        });
+
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 // problem functions & events
