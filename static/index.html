@@ -68,7 +68,7 @@
 
     <!-- FORGOT PW -->
     <div class="form-popup" id="forgot-pass">
-        <form class="form-container" id="fogot-pass-form">
+        <form class="form-container" id="forgot-pass-form">
             <h3>reset<br />password</h3>
             <label for="email">email</label>
             <input type="email" placeholder="email address" name="email" id="forgot-pass-email" required />
@@ -126,60 +126,6 @@
     </div>
 
 
-    <!-- ADD PROBLEM -->
-    <div class="form-popup center-form" id="add-problem">
-        <form class="form-container" id="add-problem-form">
-            <h3>add a problem</h3>
-
-            <label for="problem-name">problem name</label>
-            <input type="text" placeholder="problem name" name="problem-name" id="new-problem-name" required />
-
-            <label for="first-ascent">FA</label>
-            <input type="text" placeholder="first acentionist" name="first-ascent" id="new-first-ascent" />
-
-            <label for="setter-name">setter name</label>
-            <input type="text" placeholder="setter name" name="setter-name" id="new-setter-name" required />
-
-            <span class="sub-input">
-                <span class="sub-input">
-                    <label for="new-v-grade">v grade </label>
-                    <input type="number" name="new-v-grade" id="new-v-grade" />
-                </span>
-
-                <span class="sub-input">
-                    <label for="v-grade-plus">plus</label>
-                    <input type="checkbox" id="v-grade-plus" name="v-grade" />
-                </span>
-
-                <span class="sub-input">
-                    <label for="v-grade-minus">minus</label>
-                    <input type="checkbox" id="v-grade-minus" name="v-grade" />
-                </span>
-            </span>
-
-            <label id="date-set" for="date-set">date set</label>
-            <input type="date" name="date-set" id="date-set" required />
-
-            <label for="date-removed">date removed</label>
-            <input type="date" id="date-removed" name="date-removed" />          
-
-            <label for="tape-color">tape color</label>
-            <select name="tape-color" id="tape-color">
-                <option value="none">no tape</option>
-                <option value="red">red</option>
-                <option value="orange">orange</option>
-                <option value="yellow">yellow</option>
-                <option value="green">green</option>
-                <option value="blue">blue</option>
-            </select>
-
-            <label for="problem-notes">notes</label>
-            <textarea id="problem-notes" name="problem-notes" rows="4"></textarea>          
-
-            <button type="submit">add problem</button>
-            <button type="reset" class="cancel" id="cancel-add-problem">cancel</button>
-        </form>
-    </div>
 
     <div class="grid-container">
 
@@ -189,13 +135,74 @@
                 the Covid-19 Pandemic of 2020 closed gyms around the world. Fortunately, Lowe's was still open. The
                 quaranteam masked up and braved the hardware store at odd hours, worked tirelessly for three weekends
                 straight, with improper tools, and no closed-toe footwear. Featuring artwork designed by a renowned
+                local
                 artist, the peak of Mount Whitney and the graceful curves of the Mobious arch invite climbers to boulder
                 on a short wall in a two-car garage. <em>Memberships by invite only.</em></p>
         </div>
 
-        <div class="grid-item" id="problems">
-            <button id="add-problem-button">add a problem</button>
-        </div>
+            <!-- ADD PROBLEM -->
+            <div class="add-problem grid-item shaded" id="add-problem-div">
+                <form class="form-container" id="add-problem-form">
+                    <h3>add a new problem</h3>
+
+                    <label for="problem-name">problem name *</label>
+                    <input type="text" placeholder="problem name" name="problem-name" id="new-problem-name" required />
+
+                    <label for="first-ascent">FA</label>
+                    <input type="text" placeholder="first acentionist" name="first-ascent" id="new-first-ascent" />
+
+                    <label for="setter-name">setter name *</label>
+                    <input type="text" placeholder="setter name" name="setter-name" id="new-setter-name" required />
+
+                    <span class="sub-input">
+                        <span class="sub-input">
+                            <label for="new-v-grade">v grade &nbsp;</label>
+                            <input type="number" name="new-v-grade" id="new-v-grade" />
+                        </span>
+
+                        <span class="sub-input">
+                            <label for="v-grade-plus">plus</label>
+                            <input type="checkbox" id="v-grade-plus" name="v-grade" />
+                        </span>
+
+                        <span class="sub-input">
+                            <label for="v-grade-minus">minus</label>
+                            <input type="checkbox" id="v-grade-minus" name="v-grade" />
+                        </span>
+                    </span>
+
+                    <label id="date-set" for="date-set">date set *</label>
+                    <input type="date" name="date-set" id="date-set" required />
+
+                    <label for="date-removed">date removed</label>
+                    <input type="date" id="date-removed" name="date-removed" />
+
+                    <label for="tape-color">tape color</label>
+                    <select name="tape-color" id="tape-color">
+                        <option value="none">no tape</option>
+                        <option value="red">red</option>
+                        <option value="orange">orange</option>
+                        <option value="yellow">yellow</option>
+                        <option value="green">green</option>
+                        <option value="blue">blue</option>
+                    </select>
+
+                    <label for="problem-notes">notes</label>
+                    <textarea id="problem-notes" name="problem-notes" rows="4"></textarea>
+
+                    <button type="submit">add problem</button>
+                    <button type="reset" class="cancel" id="cancel-add-problem">cancel</button>
+                </form>
+            </div>
+
+            <div class="grid-item">
+                <h3>your problems</h3>
+                <ul>
+                    <li>your problems</li>
+                    <li>will be</li>
+                    <li>listed here</li>
+                </ul>
+            </div>
 
     </div> <!-- END GRID CONTAINER -->
 

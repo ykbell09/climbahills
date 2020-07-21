@@ -14,9 +14,9 @@ const loggedInDisplay = user => {
     document.querySelector('#log-out-button').style.display = 'inline';
     document.querySelector('#login').style.display = 'none';
     document.querySelector('#sign-up').style.display = 'none';
-    document.querySelector('#add-problem').style.display = 'none';
+    document.querySelector('#add-problem-div').style.display = 'none';
 
-    if (user.setter == true) document.querySelector('#add-problem-button').style.display = 'block';
+    if (user.setter == true) document.querySelector('#add-problem-div').style.display = 'block';
     if (user.admin == true) document.querySelector('#admin-button').style.display = 'inline';
 
 };
@@ -209,7 +209,6 @@ document.querySelector('#forgot-pass').addEventListener('submit', (e) => {
 
 document.querySelector('#admin-button').addEventListener('click', () => {
     document.querySelector('#admin').style.display = 'block';
-    document.querySelector('#add-problem').style.display = 'none';
     document.querySelector('#are-you-sure').style.display = 'none';
 });
 
@@ -361,24 +360,5 @@ document.querySelector('#admin-form').addEventListener('submit', (e) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
 // problem functions & events
 
-document.querySelector('#add-problem-button').addEventListener('click', () => {
-    document.querySelector('#add-problem').style.display = 'block';
-    document.querySelector('#admin').style.display = 'none';
-});
-
-document.querySelector('#cancel-add-problem').addEventListener('click', () => {
-    document.querySelector('#add-problem').style.display = 'none';
-});

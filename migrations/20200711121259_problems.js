@@ -3,7 +3,7 @@ exports.up = async knex => {
     await knex.schema.dropTableIfExists('problems');
     await knex.schema.createTable('problems', table => {
         table.increments('id').primary();
-        table.string('name').unique();
+        table.string('name').unique().notNullable();
         table.string('fa', 30);
         table.string('setter', 30).notNullable();
         table.integer('grade');
