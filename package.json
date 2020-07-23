@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "NODE_ENV=development mocha --exit -r esm test/functions.spec.js",
+    "test-prob": "NODE_ENV=development mocha --exit -r esm test/problems.spec.js",
     "local-start": "NODE_ENV=development nodemon -r esm app.js",
     "start": "node -r esm app.js"
   },
