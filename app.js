@@ -4,6 +4,7 @@ import knex from './database';
 import session from 'express-session';
 import ConnectSessionKnex from 'connect-session-knex';
 import { addNewUser, checkPassHash, sendPassResetEmail, getUserKeyAndExpiration, compareDates, compareKeys, updateUserPassword, deleteResetRecord, deleteUserRecord, updateUserStatus } from './services/functions.js';
+import { addNewProblem } from './services/problems';
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use(session({
     sameSite: true
 }));
 
+// user APIs
 app.post('/users/login', async (req, res) => {
     req.session.regenerate( async (err) => { // super important for security!
         const user = req.body;
@@ -76,6 +78,19 @@ app.post('/users/reset-pass', async (req, res) => {
     }
 });
 
+app.post('/users/reload', async (req, res) => {  
+    if (req.session.user != undefined) {
+        res.send({ username: req.session.user.username, setter: req.session.user.setter, admin: req.session.user.admin });
+    }
+});
+
+app.post('/users/logout', function (req, res) {
+    req.session.destroy((err) => {
+        res.end();
+    });
+});
+
+// admin APIs
 app.post('/users/delete', async (req, res) => {
     const userEmail = req.body.userEmail;
     const result = await deleteUserRecord(userEmail);
@@ -88,17 +103,26 @@ app.post('/users/update', async (req, res) => {
     res.send({ success: result });
 });
 
-app.post('/users/reload', async (req, res) => {  
-    if (req.session.user != undefined) {
-        res.send({ username: req.session.user.username, setter: req.session.user.setter, admin: req.session.user.admin });
-    }
+// problems APIs
+app.post('/problems/add', async (req, res) => {
+    const problem = req.body;
+    const result = await addNewProblem(
+        problem.name,
+        problem.fa,
+        problem.setter,
+        problem.grade,
+        problem.plus_minus,
+        problem.date_set,
+        problem.date_removed,
+        problem.tape_color,
+        problem.notes
+    );
+    res.send({ success: result });
 });
 
-app.post('/users/logout', function (req, res) {
-    req.session.destroy((err) => {
-        res.end();
-    });
-});
+
+
+
 
 const staticRoute = express.static('static');
 app.use('/', staticRoute);

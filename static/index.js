@@ -270,17 +270,17 @@ document.querySelector('#admin-delete-user').addEventListener('click', () => {
 
                     if (data.success == false) {
                         clearMessageIfExists();
-                        
+
                         const adminForm = document.querySelector('#are-you-sure');
                         const updateAlert = document.createElement('p');
                         updateAlert.className = 'reset-msg';
                         updateAlert.innerHTML = 'There is no account associated with this email.'
                         adminForm.appendChild(updateAlert);
-                    } 
-                    
+                    }
+
                     if (data.success == true) {
                         clearMessageIfExists();
-                        
+
                         const adminForm = document.querySelector('#are-you-sure');
                         const updateAlert = document.createElement('p');
                         updateAlert.className = 'reset-msg';
@@ -288,8 +288,8 @@ document.querySelector('#admin-delete-user').addEventListener('click', () => {
                         adminForm.appendChild(updateAlert);
 
                         // update cancel button to 'close'
-                    } 
-                    
+                    }
+
 
 
                 });
@@ -315,7 +315,7 @@ document.querySelector('#admin-form').addEventListener('submit', (e) => {
             return null
         }
     };
-    
+
     const setterStatus = statusUpdateTest(setterStatusTrue, setterStatusFalse);
     const adminStatus = statusUpdateTest(adminStatusTrue, adminStatusFalse);
 
@@ -333,7 +333,7 @@ document.querySelector('#admin-form').addEventListener('submit', (e) => {
     })
         .then(response => response.json())
         .then(data => {
-        
+
             if (data.success == true) {
                 clearMessageIfExists();
 
@@ -362,3 +362,10 @@ document.querySelector('#admin-form').addEventListener('submit', (e) => {
 
 // problem functions & events
 
+// listen for submit add problem form
+// collect form data values of fields
+// if field is blank == undefined
+// fetch API w/form data as JSON object
+// rec t/f JSON response
+// display confirmation a <p> at end of form
+// clear form data
