@@ -362,10 +362,93 @@ document.querySelector('#admin-form').addEventListener('submit', (e) => {
 
 // problem functions & events
 
-// listen for submit add problem form
-// collect form data values of fields
-// if field is blank == undefined
+// add a new problem
+document.querySelector('#add-problem-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // collect form data values of fields
+    const name = document.querySelector('#new-problem-name').value;
+    const fa = document.querySelector('#new-first-ascent').value;
+    const setter = document.querySelector('#new-setter-name').value;
+    const grade = document.querySelector('#new-v-grade').value;
+
+    // const plusMinus;
+    const gradePlus = document.querySelector('#v-grade-plus').checked;
+    const gradeMinus = document.querySelector('#v-grade-minus').checked;
+
+    const plusMinus = (function () {
+        if (gradePlus === true && gradeMinus === true) {
+            alert('please select only plus or minus, not both');
+        } else if (gradePlus === true) {
+            return '+';
+        } else if (gradeMinus === true) {
+            return '-';
+        } else {
+            return '';
+        }
+    }());
+
+    const getDate = (input) => {
+        if (input === '') {
+            return undefined;
+        } else {
+            const array = input.split('-');
+            const year = array[0];
+            const month = array[1] - 1;
+            const day = array[2];
+            const date = new Date(year, month, day);
+            return date;
+        }
+    };
+
+    const dateSet = getDate(document.querySelector('#new-date-set').value);
+    const dateRemoved = getDate(document.querySelector('#new-date-removed').value);
+
+    const tapeColor = document.querySelector('#tape-color').value;
+    const notes = document.querySelector('#problem-notes').value;
+
+    console.log(dateSet);
+
+    // problem object
+    const problem = {
+        name: name,
+        fa: fa,
+        setter: setter,
+        grade: grade,
+        plusMinus: plusMinus,
+        dateSet: dateSet,
+        dateRemoved: dateRemoved,
+        tapeColor: tapeColor,
+        notes: notes
+    };
+
+    if (problem.plusMinus !== undefined) {
+
+        fetch('/problems/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(
+                problem
+            )
+        })
+            .then(response => response.json())
+            .then(data => {
+
+                console.log(data);
+
+            })
+
+
+
+
+        console.log(problem);
+    }
+});
 // fetch API w/form data as JSON object
 // rec t/f JSON response
 // display confirmation a <p> at end of form
 // clear form data
+

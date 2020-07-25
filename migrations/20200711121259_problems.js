@@ -8,9 +8,9 @@ exports.up = async knex => {
         table.string('setter', 30).notNullable();
         table.integer('grade');
         table.string('plus_minus', 1);
-        table.timestamp('date_set').notNullable().defaultTo(knex.fn.now());
+        table.date('date_set').notNullable().defaultTo(knex.fn.now());
         table.timestamp('date_removed');
-        table.string('tape_color', 10).notNullable().defaultTo('none');
+        table.string('tape_color', 10);
         table.string('notes');
     });
 };

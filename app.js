@@ -106,17 +106,19 @@ app.post('/users/update', async (req, res) => {
 // problems APIs
 app.post('/problems/add', async (req, res) => {
     const problem = req.body;
+    console.log(problem.name);
     const result = await addNewProblem(
         problem.name,
         problem.fa,
         problem.setter,
         problem.grade,
-        problem.plus_minus,
-        problem.date_set,
-        problem.date_removed,
-        problem.tape_color,
+        problem.plusMinus,
+        problem.dateSet,
+        problem.dateRemoved,
+        problem.tapeColor,
         problem.notes
     );
+
     res.send({ success: result });
 });
 
