@@ -363,7 +363,8 @@ document.querySelector('#admin-form').addEventListener('submit', (e) => {
 // problem functions & events
 
 // add a new problem
-document.querySelector('#add-problem-form').addEventListener('submit', (e) => {
+const addProblemForm = document.querySelector('#add-problem-form');
+addProblemForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     // collect form data values of fields
@@ -372,7 +373,6 @@ document.querySelector('#add-problem-form').addEventListener('submit', (e) => {
     const setter = document.querySelector('#new-setter-name').value;
     const grade = document.querySelector('#new-v-grade').value;
 
-    // const plusMinus;
     const gradePlus = document.querySelector('#v-grade-plus').checked;
     const gradeMinus = document.querySelector('#v-grade-minus').checked;
 
@@ -388,6 +388,7 @@ document.querySelector('#add-problem-form').addEventListener('submit', (e) => {
         }
     }());
 
+    // convert a string date to date object
     const getDate = (input) => {
         if (input === '') {
             return undefined;
@@ -401,13 +402,14 @@ document.querySelector('#add-problem-form').addEventListener('submit', (e) => {
         }
     };
 
-    const dateSet = getDate(document.querySelector('#new-date-set').value);
-    const dateRemoved = getDate(document.querySelector('#new-date-removed').value);
-
+    const dateSet = getDate(
+        document.querySelector('#new-date-set').value
+    );
+    const dateRemoved = getDate(
+        document.querySelector('#new-date-removed').value
+    );
     const tapeColor = document.querySelector('#tape-color').value;
     const notes = document.querySelector('#problem-notes').value;
-
-    console.log(dateSet);
 
     // problem object
     const problem = {
@@ -436,19 +438,26 @@ document.querySelector('#add-problem-form').addEventListener('submit', (e) => {
         })
             .then(response => response.json())
             .then(data => {
-
+                // returns t/f
                 console.log(data);
+                if (data.success === true) {
+                    // display confirmation a <p> at end of form
+                    alert('problem successfully added!')
+                    addProblemForm.reset();
+                }
 
-            })
+                if (data.success === false) {
+                    alert('Please make sure all required fields are completed.')
+                    // display error message
+                    // problem with same name? 
+                    // other error?
+                }
+
+            });
 
 
 
 
-        console.log(problem);
     }
 });
-// fetch API w/form data as JSON object
-// rec t/f JSON response
-// display confirmation a <p> at end of form
-// clear form data
 
