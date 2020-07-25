@@ -438,8 +438,7 @@ addProblemForm.addEventListener('submit', (e) => {
         })
             .then(response => response.json())
             .then(data => {
-                // returns t/f
-                console.log(data);
+
                 if (data.success === true) {
                     // display confirmation a <p> at end of form
                     alert('problem successfully added!')
