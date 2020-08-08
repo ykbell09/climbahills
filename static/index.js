@@ -147,6 +147,15 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (data.username != undefined || null) loggedInDisplay(data);
         });
+    
+    fetch('/problems', {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
+    
 });
 
 document.querySelector('#forgot-pass-link').addEventListener('click', () => {

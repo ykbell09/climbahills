@@ -4,7 +4,7 @@ import knex from './database';
 import session from 'express-session';
 import ConnectSessionKnex from 'connect-session-knex';
 import { addNewUser, checkPassHash, sendPassResetEmail, getUserKeyAndExpiration, compareDates, compareKeys, updateUserPassword, deleteResetRecord, deleteUserRecord, updateUserStatus } from './services/functions.js';
-import { addNewProblem } from './services/problems';
+import { addNewProblem, getCurrentProblems } from './services/problems';
 
 const app = express();
 app.use(express.json());
@@ -121,7 +121,10 @@ app.post('/problems/add', async (req, res) => {
     res.send({ success: result });
 });
 
-
+app.get('/problems', async (req, res) => {
+    const allProblems = await getCurrentProblems();
+    res.send(allProblems);
+});
 
 
 

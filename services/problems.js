@@ -45,3 +45,17 @@ export const addNewProblem = async (
     if (problem == null) return false;
     return true;
 };
+
+/**
+ * returns all problems without a removal date.
+ * @returns {object} array of problem objects
+ */
+export const getCurrentProblems = async () => {
+    return await knex('problems')
+        .select()
+        .where({ date_removed: null })
+        .returning('name', 'fa', 'setter', 'grade', 'plusMinus', 'tapeColor', 'notes')
+        .catch(function () {
+            return null;
+        });
+};

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import knex from '../database';
-import { addNewProblem } from '../services/problems';
+import { addNewProblem, getCurrentProblems } from '../services/problems';
 
 describe('problem functions', () => {
 
@@ -58,6 +58,16 @@ describe('problem functions', () => {
 
         });
 
+    });
+
+    describe('getCurrentProblems', () => {
+
+        it('gets all current problems', async () => {
+
+            const result = await getCurrentProblems();
+            expect(result).to.be.an('array');
+
+        });
     });
 
 })

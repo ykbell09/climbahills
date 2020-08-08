@@ -129,6 +129,7 @@
 
     <div class="grid-container">
 
+        <!-- ABOUT SECTION -->
         <div id="about" class="grid-item">
             <h3>small but mighty</h3>
             <p>The A-hills home gym was born of necessity. The perfect garage wall was lined with junk for years, before
@@ -140,69 +141,75 @@
                 on a short wall in a two-car garage. <em>Memberships by invite only.</em></p>
         </div>
 
-            <!-- ADD PROBLEM -->
-            <div class="add-problem grid-item shaded" id="add-problem-div">
-                <form class="form-container" id="add-problem-form">
-                    <h3>add a new problem</h3>
+        <!-- DISPLAY CURRENT PROBLEMS -->
+        <div id="display-problems" class="grid-item">
+        
+        </div>
 
-                    <label for="problem-name">problem name *</label>
-                    <input type="text" placeholder="problem name" name="problem-name" id="new-problem-name"  />
 
-                    <label for="first-ascent">FA</label>
-                    <input type="text" placeholder="first acentionist" name="first-ascent" id="new-first-ascent" />
+        <!-- ADD PROBLEM -->
+        <div class="add-problem grid-item shaded" id="add-problem-div">
+            <form class="form-container" id="add-problem-form">
+                <h3>add a new problem</h3>
 
-                    <label for="setter-name">setter name *</label>
-                    <input type="text" placeholder="setter name" name="setter-name" id="new-setter-name"  />
+                <label for="problem-name">problem name *</label>
+                <input type="text" placeholder="problem name" name="problem-name" id="new-problem-name" />
 
+                <label for="first-ascent">FA</label>
+                <input type="text" placeholder="first acentionist" name="first-ascent" id="new-first-ascent" />
+
+                <label for="setter-name">setter name *</label>
+                <input type="text" placeholder="setter name" name="setter-name" id="new-setter-name" />
+
+                <span class="sub-input">
                     <span class="sub-input">
-                        <span class="sub-input">
-                            <label for="new-v-grade">v grade * &nbsp;</label>
-                            <input type="number" name="new-v-grade" id="new-v-grade" />
-                        </span>
-
-                        <span class="sub-input">
-                            <label for="v-grade-plus">plus</label>
-                            <input type="checkbox" id="v-grade-plus" name="v-grade" />
-                        </span>
-
-                        <span class="sub-input">
-                            <label for="v-grade-minus">minus</label>
-                            <input type="checkbox" id="v-grade-minus" name="v-grade" />
-                        </span>
+                        <label for="new-v-grade">v grade * &nbsp;</label>
+                        <input type="number" name="new-v-grade" id="new-v-grade" />
                     </span>
 
-                    <label id="date-set" for="date-set">date set *</label>
-                    <input type="date" name="date-set" id="new-date-set"  />
+                    <span class="sub-input">
+                        <label for="v-grade-plus">plus</label>
+                        <input type="checkbox" id="v-grade-plus" name="v-grade" />
+                    </span>
 
-                    <label for="date-removed">date removed</label>
-                    <input type="date" id="new-date-removed" name="date-removed" />
+                    <span class="sub-input">
+                        <label for="v-grade-minus">minus</label>
+                        <input type="checkbox" id="v-grade-minus" name="v-grade" />
+                    </span>
+                </span>
 
-                    <label for="tape-color">tape color</label>
-                    <select name="tape-color" id="tape-color">
-                        <option value="none">no tape</option>
-                        <option value="red">red</option>
-                        <option value="orange">orange</option>
-                        <option value="yellow">yellow</option>
-                        <option value="green">green</option>
-                        <option value="blue">blue</option>
-                    </select>
+                <label id="date-set" for="date-set">date set *</label>
+                <input type="date" name="date-set" id="new-date-set" />
 
-                    <label for="problem-notes">notes</label>
-                    <textarea id="problem-notes" name="problem-notes" rows="4"></textarea>
+                <label for="date-removed">date removed</label>
+                <input type="date" id="new-date-removed" name="date-removed" />
 
-                    <button type="submit">add problem</button>
-                    <button type="reset" class="cancel" id="cancel-add-problem">cancel</button>
-                </form>
-            </div>
+                <label for="tape-color">tape color</label>
+                <select name="tape-color" id="tape-color">
+                    <option value="none">no tape</option>
+                    <option value="red">red</option>
+                    <option value="orange">orange</option>
+                    <option value="yellow">yellow</option>
+                    <option value="green">green</option>
+                    <option value="blue">blue</option>
+                </select>
 
-            <div class="grid-item">
-                <h3>your problems</h3>
-                <ul>
-                    <li>your problems</li>
-                    <li>will be</li>
-                    <li>listed here</li>
-                </ul>
-            </div>
+                <label for="problem-notes">notes</label>
+                <textarea id="problem-notes" name="problem-notes" rows="4"></textarea>
+
+                <button type="submit">add problem</button>
+                <button type="reset" class="cancel" id="cancel-add-problem">cancel</button>
+            </form>
+        </div>
+
+        <div class="grid-item">
+            <h3>your problems</h3>
+            <ul>
+                <li>your problems</li>
+                <li>will be</li>
+                <li>listed here</li>
+            </ul>
+        </div>
 
     </div> <!-- END GRID CONTAINER -->
 
