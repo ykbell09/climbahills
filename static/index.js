@@ -5,7 +5,6 @@
 const loggedInDisplay = user => {
     const topNavUser = document.querySelector('#top-nav-user');
     const userWelcome = document.createElement('p');
-    // userWelcome.className = '';
     userWelcome.innerHTML = `welcome, ${user.username}`;
     topNavUser.insertBefore(userWelcome, topNavUser.childNodes[0]);
 
@@ -16,8 +15,8 @@ const loggedInDisplay = user => {
     document.querySelector('#sign-up').style.display = 'none';
     document.querySelector('#add-problem-div').style.display = 'none';
 
-    if (user.setter == true) document.querySelector('#add-problem-div').style.display = 'block';
-    if (user.admin == true) document.querySelector('#admin-button').style.display = 'inline';
+    if (user.setter === true) document.querySelector('#add-problem-div').style.display = 'block';
+    if (user.admin === true) document.querySelector('#admin-button').style.display = 'inline';
 
 };
 
@@ -34,6 +33,7 @@ const clearAlertIfExists = () => {
 const clearMessageIfExists = () => {
     if (document.querySelector('.reset-msg') !== null) document.querySelector('.reset-msg').remove();
 };
+
 
 document.querySelector('#log-in-button').addEventListener('click', () => {
     document.querySelector('#login').style.display = 'block';
@@ -140,6 +140,8 @@ document.querySelector('#log-out-button').addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // check if user is logged in
     fetch('/users/reload', {
         method: 'POST'
     })
@@ -147,7 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (data.username != undefined || null) loggedInDisplay(data);
         });
-    
+
+    // get all current problems
     fetch('/problems', {
         method: 'GET'
     })
@@ -155,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             console.log(data);
         });
-    
+
 });
 
 document.querySelector('#forgot-pass-link').addEventListener('click', () => {
@@ -368,7 +371,6 @@ document.querySelector('#admin-form').addEventListener('submit', (e) => {
 
 });
 
-
 // problem functions & events
 
 // add a new problem
@@ -468,4 +470,6 @@ addProblemForm.addEventListener('submit', (e) => {
 
     }
 });
+
+
 

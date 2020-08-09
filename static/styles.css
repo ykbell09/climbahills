@@ -387,3 +387,13 @@ h1::after {
   background-color: red;
   content: "";
 }
+
+.problem-card-heading {
+  text-transform: lowercase;
+  font-weight: bold;
+}
+
+#add-problem-div,
+#your-problems {
+  display: none;
+}
