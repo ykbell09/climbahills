@@ -34,6 +34,61 @@ const clearMessageIfExists = () => {
     if (document.querySelector('.reset-msg') !== null) document.querySelector('.reset-msg').remove();
 };
 
+// gets and displays all current problems on page load
+const displayCurrentProblemSet = (problems) => {
+    console.log(problems[1]);
+
+    if (problems.length > 0) {
+
+        for (let i = 0; i < problems.length; i++) {
+            // create a new problem card
+            const name = problems[i].name;
+            let grade = problems[i].grade;
+            if (problems[i].plus_minus !== undefined) {
+                grade = grade + problems[i].plus_minus;
+            }
+            const setter = problems[i].setter;
+            const fa = problems[i].fa;
+            const notes = problems[i].notes;
+            const color = problems[i].tape_color;
+            
+            const problemCard = document.createElement('div');
+            problemCard.className = `problem-card ${color}-color`;
+            problemCard.innerHTML = `<div class="card-content">
+            <h2>v${grade}</h2>
+            <h4>${name}</h4>
+            <p><span class="problem-card-heading">SETTER:</span> ${setter}
+            <br />
+            <span class="problem-card-heading">FA:</span> ${fa}</p>
+            <p><span class="problem-card-heading">NOTES:</span> ${notes}</p>
+            </div>`
+
+            const problemList = document.querySelector('#problem-list');
+            problemList.appendChild(problemCard);
+
+            console.log(problemCard.className);
+
+        }
+    }
+};
+
+// event listeners inserted on page load
+document.addEventListener('DOMContentLoaded', () => {
+
+    // check if user is logged in
+    fetch('/users/reload', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => { if (data.username !== undefined || null) loggedInDisplay(data); });
+
+    // get all current problems
+    fetch('/problems', { method: 'GET' })
+        .then(response => response.json())
+        .then(data => { displayCurrentProblemSet(data); });
+
+    // add all DOM event listeners -- refactor code!
+
+
+});
 
 document.querySelector('#log-in-button').addEventListener('click', () => {
     document.querySelector('#login').style.display = 'block';
@@ -137,28 +192,6 @@ document.querySelector('#log-out-button').addEventListener('click', () => {
         method: 'POST'
     })
         .then(window.location.href = '/index.html');
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // check if user is logged in
-    fetch('/users/reload', {
-        method: 'POST'
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.username != undefined || null) loggedInDisplay(data);
-        });
-
-    // get all current problems
-    fetch('/problems', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        });
-
 });
 
 document.querySelector('#forgot-pass-link').addEventListener('click', () => {
@@ -374,8 +407,7 @@ document.querySelector('#admin-form').addEventListener('submit', (e) => {
 // problem functions & events
 
 // add a new problem
-const addProblemForm = document.querySelector('#add-problem-form');
-addProblemForm.addEventListener('submit', (e) => {
+document.querySelector('#add-problem-form').addEventListener('submit', (e) => {
     e.preventDefault();
 
     // collect form data values of fields
