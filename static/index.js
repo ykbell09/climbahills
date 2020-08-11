@@ -16,6 +16,7 @@ const loggedInDisplay = user => {
     document.querySelector('#add-problem-div').style.display = 'none';
 
     if (user.setter === true) document.querySelector('#add-problem-div').style.display = 'block';
+    if (user.setter === true) document.querySelector('#your-problems').style.display = 'block';
     if (user.admin === true) document.querySelector('#admin-button').style.display = 'inline';
 
 };
